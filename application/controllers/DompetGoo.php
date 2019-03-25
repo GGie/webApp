@@ -1,0 +1,91 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class DompetGoo extends CI_Controller {
+
+	public function __construct()
+	{
+		parent :: __construct() ;
+		if ( !$this->session->userdata('is_login') ) {
+				redirect(site_url('auth/login'));
+				exit;
+		}
+
+		//$this->load->model('product_model', 'ProductModel');
+		$this->load->model('Dompet_model', 'DompetModel');
+		$this->load->model('User_model', 'UsersModel');
+	}
+
+	public function detail()
+	{
+				$param['start_date'] 	= $this->input->get('start_date');
+				$param['end_date'] 		= $this->input->get('end_date');
+				$param['order_by'] 		= $this->input->get('search');
+
+				$this->load->library('pagination');
+    			            // $config["base_url"] = base_url() . "/home/";
+    			// $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
+    			$config['full_tag_open'] = '<div class="tt-pagination"><div class="pagination"><ul>';
+				$config['full_tag_close'] = '</ul></div></div>';
+				$config['num_tag_open'] = '<li class="">';
+				$config['num_tag_close'] = '</li>';
+				$config['cur_tag_open'] = '<a class="active"><li>';
+				$config['cur_tag_close'] = '</li></a>';
+				$config['prev_tag_open'] = '<li class="">';
+				$config['prev_tag_close'] = '<li>';
+				$config['next_tag_open'] = '<li class="">';
+				$config['next_tag_close'] = '</li>';
+				$config['num_tag_open'] = '<li class="">';
+				$config['num_tag_close'] = '</li>';
+				$config['first_link'] = '<li class="">FIRST</li>';
+				$config['first_tag_open'] = '<li class="">';
+				$config['first_tag_close'] = '</li>';
+				$config['last_link'] = '<li class="">LAST</li>';
+				$config['last_tag_open'] = '<li class="">';
+				$config['last_tag_close'] = '</li>';
+				$config['page_query_string'] = TRUE;
+				$config['use_page_numbers'] = FALSE;
+				//$config['suffix'] = '?&search='.$data['search'] ;
+				$config['base_url'] = base_url().'dompetgoo/detail.php?start_date='.$param['start_date'].'&end_date='.$param['end_date'];
+
+				$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+    			$config['uri_segment'] = 2;
+			   	$config["total_rows"] = $this->DompetModel->getMutasi(false, $param)->num_rows();
+			    $config['per_page'] = 10; 
+			    $this->pagination->initialize($config); 
+
+			    $data["total_rows"] = $config["total_rows"];
+			    $data['DataDompet'] = $this->DompetModel->getMutasi(true, $param, $config["per_page"], $offset);
+
+		$title['title'] = "Dashboard";
+		parent :: header($title);
+
+
+		$data['users']		= $this->UsersModel->getByUserId(user_id());
+		$this->load->view('dompetGoo/dompet_detail', $data);
+		$this->load->view('web/footer');
+	}
+	public function invoice($param = "")
+	{
+		if ($param == "")
+			show_404();
+
+		$data['invoice'] = $this->CartModel->getInvoice($param);
+
+		if ($data['invoice']  == null)
+			show_404();
+
+		$this->load->view('web/header_cart');
+		$this->load->view('cart/invoice', $data);
+
+		return $this->load->view('web/footer_blank');
+	}
+	
+
+
+
+}
+
+
+/* End of file DompetGoo.php */
+/* Location: ./application/controller/DompetGoo.php */

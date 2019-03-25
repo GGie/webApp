@@ -1,0 +1,91 @@
+.file-wrapper {
+	position: relative;
+    align-content: center;
+    display: inline-block;
+    border: 1px red solid;
+    font-size: 0;
+}
+.file-wrapper file {
+    position: absolute;
+	width:90px;
+	height:90px;
+    top: 0;
+    right: 0;
+    filter: alpha(opacity=1);
+    opacity: 0;
+    -moz-opacity: 0.01;
+    cursor: pointer;
+	z-index: -10000;
+}
+
+.upload {
+    align-content: center;
+	width:190px;
+	height:190px;
+	display:block;  
+	height:100%;
+	line-height:168px;
+	overflow:hidden;
+	filter: alpha(opacity=50);
+	background: #fff;
+}
+
+.file-wrapper {
+	 display: inline-block;
+	font-size:10px;
+	margin-right: 6px;
+	color:	#ff0000;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+	background: url(../images/custom/plus.png) no-repeat center;
+	border:1px dashed #ddd;
+	/*box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important;*/
+	overflow:hidden;
+	width:80px;
+	height:80px;
+	*cursor:pointer !important;
+	-moz-border-radius:5px; -webkit-border-radius:5px;
+}
+
+.dltbtn{
+	z-index: 9999999;
+	position: absolute;
+}
+
+.file-wrapper .delete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #ff0000;
+    padding: 3px 2px 2px;
+    color: #fff;
+    /*font-weight: bold;*/
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+
+.file-wrapper:hover .delete {
+    opacity: 100;
+}
+
+.file-wrapper .edit {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    /*background-color: #aaa;*/
+    padding: 3px 2px 2px;
+    color: #ddd;
+    /*font-weight: bold;*/
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+
+.file-wrapper:hover .edit {
+    opacity: 100;
+}
