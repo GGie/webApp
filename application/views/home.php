@@ -6,6 +6,15 @@ body {
 	height: 100%;
 	color:#888da8;background-color:#ecf3ff;
 }
+
+
+/*body{margin:0;font-family:Roboto,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:.812rem;font-weight:400;line-height:1.5;color:#888da8;background-color:#edf2f6}
+	.ui-block {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #e6ecf5;
+    margin-bottom: 15px;
+}*/
 .modal {
   right: 0!important;
   bottom: 0;
