@@ -1,11 +1,4 @@
-
 <div class="tt-breadcrumb">
-	<div class="container">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li>Listing</li>
-		</ul>
-	</div>
 </div>
 <div id="tt-pageContent">
 	<div class="container-indent">
@@ -43,9 +36,11 @@
 				<div class="col-md-12 col-lg-9 col-xl-9">
 					<div class="content-indent container-fluid-custom-mobile-padding-02">
 						<div class="tt-filters-options">
-							<h1 class="tt-title" style="font-size: 14px;color:#aaa">
-								Menampilkan : <span><i><b><?php echo xxs_filter($this->input->get('search')) ?></b></i></span>
-							</h1>
+							<?php if ($DataSearch->num_rows() > 0) { ?>
+								<h1 class="tt-title" style="font-size: 14px;color:#aaa">
+									Menampilkan : <span><i><b><?php echo xxs_filter($this->input->get('search')) ?></b></i></span>
+								</h1>
+							<?php } ?>
 							<div class="tt-btn-toggle">
 								<a href="#">FILTER</a>
 							</div>
@@ -69,23 +64,23 @@
 						</div>
 						<?php if ($DataSearch->num_rows() > 0) { ?>
 						<div class="tt-product-listing row">
-							<?php foreach ($DataSearch->result() as $key => $product) { ?>
+							<?php foreach ($DataSearch->result() as $key => $produk) { ?>
 							<div class="col-6 col-md-3 tt-col-item">
 								<div class="tt-product thumbprod-center">
 									<div class="tt-image-box">
-										<a href="javascript:void(0)" class="tt-btn-wishlist" data-tooltip="<?php echo $product->view ?> Viewer" data-tposition="left"></a>
-										<a href="<?php echo base_url('p/product/' . $product->product_id . '-' . replace_url_char($product->product_name)) ?>">
-											<span class="tt-img"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($product->product_id) ?>"></span>
-											<span class="tt-img-roll-over"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($product->product_id) ?>" alt=""></span>
+										<a href="javascript:void(0)" class="tt-btn-wishlist" data-tooltip="<?php echo $produk->viewed ?> Viewer" data-tposition="left"></a>
+										<a href="<?php echo base_url('p/product/' . $produk->product_id . '-' . replace_url_char($produk->product_name)) ?>">
+											<span class="tt-img"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($produk->product_id) ?>"></span>
+											<span class="tt-img-roll-over"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($produk->product_id) ?>" alt=""></span>
 											<span class="tt-label-location">
-												<span class="tt-label-new">Rp. <?php echo @number_format(@$product->price,0,',','.'); ?></span>
+												<span class="tt-label-new">Rp. <?php echo @number_format(@$produk->price,0,',','.'); ?></span>
 											</span>
 										</a>
 									</div>
 									<div class="tt-description">
-										<div class="tt-row">
+										<!-- <div class="tt-row">
 											<ul class="tt-add-info">
-												<li><a href="#"><?php echo $product->detail ?></a></li>
+												<li><a href="#"><?php echo $produk->detail ?></a></li>
 											</ul>
 											<div class="tt-rating">
 												<i class="icon-star"></i>
@@ -94,18 +89,16 @@
 												<i class="icon-star"></i>
 												<i class="icon-star"></i>
 											</div>
-										</div>
-										<h2 class="tt-title _trjst"><a href="<?php echo base_url('p/product/' . $product->product_id . '-' . replace_url_char($product->product_name)) ?>"><?php echo $product->product_name ?></a></h2>
+										</div> -->
+										<h2 class="tt-title _trjst"><a href="<?php echo base_url('p/product/' . $produk->product_id . '-' . replace_url_char($produk->product_name)) ?>"><?php echo $produk->product_name ?></a></h2>
 										<div class="tt-product-inside-hover">
-								<?php if ($product->input_by != user_id() ) { ?>
-									<div class="tt-row-btn">
-										<a href="<?php echo base_url('cart/cart/' . $product->product_id) ?>" class="btn btn-small"><i class="icon-f-39"></i>PIZ</a>
-									</div>
-								<?php } ?>
-								<div class="tt-row-btn">
-									<a href="javascript:void(0)" class="tt-btn-wishlist"> <?php echo $product->view ?> Viewer</a>
-								</div>
-							</div>
+											<div class="tt-row-btn">
+												<a href="<?php echo base_url('p/product/' . $produk->product_id . '-' . replace_url_char($produk->product_name)) ?>" class="btn btn-small"><i class="icon-f-39"></i>PIZ</a>
+											</div>
+											<div class="tt-row-btn">
+												<a href="javascript:void(0)" class="tt-btn-wishlist"> <?php echo $produk->viewed ?> Viewer</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -117,9 +110,10 @@
 							<div id="tt-pageContent">
 								<div class="container-indent nomargin">
 									<div class="tt-empty-search">
-										<span class="tt-icon icon-f-85"></span>
-										<h1 class="tt-title">YOUR SEARCH RETURNS NO RESULTS.</h1>
-										<p>Search results for <span class="tt-base-dark-color"><i><b><?php echo xxs_filter($this->input->get('search')) ?></b></i></span></p>
+										<!-- <span class="tt-icon icon-f-85"></span> -->
+										<img src="<?php echo base_url('assets/images/icon/icon-search.png') ?>" width="300px">
+										<h1 class="tt-title">Tidak ditemukan apapun</h1>
+										<p>Hasil pencarian untuk <span class="tt-base-dark-color"><i><b><?php echo xxs_filter($this->input->get('search')) ?></b></i></span> tidak ditemukan. Coba keyword lain?</p>
 									</div>
 								</div>
 							</div>

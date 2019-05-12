@@ -12,9 +12,9 @@ $('.readmore').expander({
 	    $('.btn-loader').attr('disabled', true);
 	});
 </script>
-<!-- <script src="<?php echo base_url('assets') ?>/external/elevatezoom/jquery.elevatezoom.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/elevatezoom/jquery.elevatezoom.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/slick/slick.min.js"></script>
-<script src="<?php echo base_url('assets') ?>/external/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
+<script src="<?php echo base_url('assets') ?>/external/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/panelmenu/panelmenu.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/instafeed/instafeed.min.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
@@ -28,6 +28,8 @@ $('.readmore').expander({
 <script src="<?php echo base_url('assets') ?>/external/form/jquery.form.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/form/jquery.validate.min.js"></script>
 <script src="<?php echo base_url('assets') ?>/external/form/jquery.form-init.js"></script>
+</body>
+</html>
 
 <script type="text/javascript">
 

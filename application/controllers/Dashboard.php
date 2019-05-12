@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Dashboard extends MX_Controller {
 
 	public function __construct()
 	{
@@ -20,7 +20,129 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$this->view_dashboard('dashboard/test');
+		$this->load->model('User_model', 'UserModel');
+
+		if (!user_id()){
+			redirect(site_url('auth/login'));
+		}
+
+
+		$title['title'] = "Dashboard";
+		$title['buttonBack'] = "Dashboard";
+		$title['link'] = base_url();
+
+		parent :: header_modif($title);
+
+		$data['user'] = $this->UserModel->getByUserId(user_id());
+
+		if (is_mobile()) {
+			$this->load->view('dashboard/dashboard', $data);
+		} else {
+			parent :: header($title) ;
+			//Belum ada
+		}
+
+		parent::footer_blank();
+	}
+
+	public function sell()
+	{
+			$param['search'] = $this->input->get('search') ? $this->input->get('search') : "0";
+			$this->load->library('pagination');
+			            // $config["base_url"] = base_url() . "/home/";
+			// $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
+			$config['full_tag_open'] = '<div class="pagination basic-pagination"><div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div></div>';
+			$config['num_tag_open'] = '<li class="z-depth-1">';
+			$config['num_tag_close'] = '</li>';
+			$config['cur_tag_open'] = '<li class="disabled"><a class="z-depth-1">';
+			$config['cur_tag_close'] = '</a></li>';
+			$config['prev_tag_open'] = '<li class="z-depth-1">';
+			$config['prev_tag_close'] = '<li>';
+			$config['next_tag_open'] = '<li class="z-depth-1">';
+			$config['next_tag_close'] = '</li>';
+			$config['num_tag_open'] = '<li class="z-depth-1">';
+			$config['num_tag_close'] = '</li>';
+			$config['first_link'] = '<li class="">FIRST</li>';
+			$config['first_tag_open'] = '<li class="">';
+			$config['first_tag_close'] = '</li>';
+			$config['last_link'] = '<li class="z-depth-1">LAST</li>';
+			$config['last_tag_open'] = '<li class="z-depth-1">';
+			$config['last_tag_close'] = '</li>';
+			$config['page_query_string'] = TRUE;
+			$config['use_page_numbers'] = FALSE;
+			//$config['suffix'] = '?&search='.$data['search'] ;
+			$config['base_url'] = base_url().'dashboard/sell';
+
+			$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+			$config['uri_segment'] = 2;
+		   	$config["total_rows"] = $this->ProductModel->getProductSell($this->session->userdata('user_id'), false, $this->input->get('search'))->num_rows();
+		    $config['per_page'] = 10; 
+		    $this->pagination->initialize($config); 
+
+		    $param["total_rows"] = $config["total_rows"];
+		    $param['Dataproduct'] = $this->ProductModel->getProductSell($this->session->userdata('user_id'), true, $this->input->get('search'), $config["per_page"], $offset);
+
+			$title['title'] = "Product Jual";
+			$title['link'] = site_url('dashboard');
+
+			parent :: header_modif($title);
+
+			if (is_mobile()) {
+				$this->load->view('dashboard/product_sell_mobile', $param);
+			} else {
+				parent :: header($title) ;
+				//Belum ada
+			}
+
+			parent :: footer_blank() ;
+	}
+
+	public function products()
+	{
+		$param['search'] = $this->input->get('search') ? $this->input->get('search') : "0";
+				$this->load->library('pagination');
+    			            // $config["base_url"] = base_url() . "/home/";
+    			// $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
+    			$config['full_tag_open'] = '<div class="pagination basic-pagination"><div class="pagination"><ul>';
+				$config['full_tag_close'] = '</ul></div></div>';
+				$config['num_tag_open'] = '<li class="z-depth-1">';
+				$config['num_tag_close'] = '</li>';
+				$config['cur_tag_open'] = '<li class="disabled"><a class="z-depth-1">';
+				$config['cur_tag_close'] = '</a></li>';
+				$config['prev_tag_open'] = '<li class="z-depth-1">';
+				$config['prev_tag_close'] = '<li>';
+				$config['next_tag_open'] = '<li class="z-depth-1">';
+				$config['next_tag_close'] = '</li>';
+				$config['num_tag_open'] = '<li class="z-depth-1">';
+				$config['num_tag_close'] = '</li>';
+				$config['first_link'] = '<li class="">FIRST</li>';
+				$config['first_tag_open'] = '<li class="">';
+				$config['first_tag_close'] = '</li>';
+				$config['last_link'] = '<li class="z-depth-1">LAST</li>';
+				$config['last_tag_open'] = '<li class="z-depth-1">';
+				$config['last_tag_close'] = '</li>';
+				$config['page_query_string'] = TRUE;
+				$config['use_page_numbers'] = FALSE;
+				//$config['suffix'] = '?&search='.$data['search'] ;
+				$config['base_url'] = base_url().'dashboard/product_list';
+
+				$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+    			$config['uri_segment'] = 2;
+			   	$config["total_rows"] = $this->ProductModel->getSearchInputBy($this->session->userdata('user_id'), false, $this->input->get('search'))->num_rows();
+			    $config['per_page'] = 10; 
+			    $this->pagination->initialize($config); 
+
+			    $param["total_rows"] = $config["total_rows"];
+			    $param['Dataproduct'] = $this->ProductModel->getSearchInputBy($this->session->userdata('user_id'), true, $this->input->get('search'), $config["per_page"], $offset);
+
+		$title['title'] = "Product";
+		$title['buttonBack'] = "Dashboard";
+
+		parent :: header_modif($title);
+		$this->load->view('dashboard/product', $param);
+
+		parent :: footer_blank() ;
 	}
 
 	public function rekening_list()
@@ -312,30 +434,37 @@ class Dashboard extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 
 		if ( $param == 'save' and $this->input->post('product_name') != "" ) {
+				$this->db->trans_start();
 
-
-				$product_id = $this->auto_product_id();
+				$this->load->helper('unique_helper');
+				$product_id = product_id();
 
 				$this->db->insert('product',array(
 					'product_id'		=> $product_id,
-					'url_video'			=> $this->input->post('url_video',true),
+					'video_youtube_url' => $this->input->post('url_video',true),
 					'product_name'		=> $this->input->post('product_name',true),
-					'product_desc'		=> $this->input->post('product_desc',true),
-					'product_title'		=> replace_url_char($this->input->post('product_name',true)),
-					'product_key'		=> replace_url_char($this->input->post('product_name',true)),
-					'product_stock'		=> replace_url_char($this->input->post('product_stock',true)),
+					'product_type'		=> 1, //Product Dijual
+					'status'			=> 1, //Aktif
+					'description'		=> $this->input->post('product_desc',true),
+					'meta_title'		=> replace_url_char($this->input->post('product_name',true)),
+					'meta_description'  => replace_url_char($this->input->post('product_desc',true)),
+					'meta_keyword'		=> replace_url_char($this->input->post('product_name',true)),
+					'quantity'			=> $this->input->post('product_stock') ? $this->input->post('product_stock') : 1,
 					'kategori_id'		=> $this->input->post('kategori_id',true),
 					'kategori_detail'	=> $this->input->post('kategori_detail',true),
 					'price'				=> $this->input->post('price',true),
-					'weight'			=> $this->input->post('weight',true),
+					'weight'			=> $this->input->post('weight') ? $this->input->post('weight') : 0,
 					'input_by'			=> $user_id,
 					'input_date'		=> date('Y-m-d H:i:s')
 				));
 
 				$this->unggah_gambar($product_id);
 				$this->unggah_music($product_id);
+				$this->unggah_dokumen($product_id);
 
-				redirect('dashboard/product_list');
+				$this->db->trans_complete();
+
+				redirect('dashboard/sell');
 
 
 		} elseif ( $param == 'edit'){
@@ -365,7 +494,7 @@ class Dashboard extends CI_Controller {
 				if ($access != "" AND $access == user_id()){
 					$this->db->trans_start();
 					
-					$this->db->delete('file', array('product_id' => $id));
+					$this->db->delete('product_file', array('product_id' => $id));
 
 					$this->unggah_gambar($id);
 					$this->unggah_music($id);
@@ -404,7 +533,7 @@ class Dashboard extends CI_Controller {
 				if ($access != "" AND $access == user_id()){
 					$this->db->trans_start();
 						$this->db->delete('product', array('product_id' => $this->input->post('id')));
-						$this->db->delete('file', array('product_id' => $this->input->post('id')));
+						$this->db->delete('product_file', array('product_id' => $this->input->post('id')));
 					$this->db->trans_complete();
 					
 					exit;
@@ -414,9 +543,31 @@ class Dashboard extends CI_Controller {
 
 		} elseif ( $param == 'add'){
 
+			$type = $this->input->get('type');
 
-			$params['data'] = $this->KategoryModel->getAll();
-			$this->view_dashboard('dashboard/product_add', $params);
+			if ( !$type )
+				exit();
+
+			//$params['data'] = $this->KategoryModel->getAll();
+
+			$title['title'] = "Tambah Produk";
+			$title['link'] = site_url("dashboard");
+			parent :: header_modif($title);
+
+			$data['kategories'] = $this->KategoryModel->idFom($type);
+
+			if ( $type == 1 ){
+				$this->load->view('dashboard/product_add_type1', $data);
+			}
+			if ( $type == 2 ) {
+				$this->load->view('dashboard/product_add_type2', $data);
+			}
+			if ( $type == 3 ) {
+				$this->load->view('dashboard/product_add_type3', $data);
+			}
+			parent :: footer_blank() ;
+
+			// $this->view_dashboard('dashboard/product_add', $params);
 
 
 
@@ -571,56 +722,6 @@ class Dashboard extends CI_Controller {
 		
 	}
 
-	public function product_list()
-	{
-		$this->load->model('Cart_model', 'CartModel');
-
-				$param['search'] = $this->input->get('search') ? $this->input->get('search') : "0";
-				$this->load->library('pagination');
-    			            // $config["base_url"] = base_url() . "/home/";
-    			// $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
-    			$config['full_tag_open'] = '<div class="tt-pagination"><div class="pagination"><ul>';
-				$config['full_tag_close'] = '</ul></div></div>';
-				$config['num_tag_open'] = '<li class="">';
-				$config['num_tag_close'] = '</li>';
-				$config['cur_tag_open'] = '<a class="active"><li>';
-				$config['cur_tag_close'] = '</li></a>';
-				$config['prev_tag_open'] = '<li class="">';
-				$config['prev_tag_close'] = '<li>';
-				$config['next_tag_open'] = '<li class="">';
-				$config['next_tag_close'] = '</li>';
-				$config['num_tag_open'] = '<li class="">';
-				$config['num_tag_close'] = '</li>';
-				$config['first_link'] = '<li class="">FIRST</li>';
-				$config['first_tag_open'] = '<li class="">';
-				$config['first_tag_close'] = '</li>';
-				$config['last_link'] = '<li class="">LAST</li>';
-				$config['last_tag_open'] = '<li class="">';
-				$config['last_tag_close'] = '</li>';
-				$config['page_query_string'] = TRUE;
-				$config['use_page_numbers'] = FALSE;
-				//$config['suffix'] = '?&search='.$data['search'] ;
-				$config['base_url'] = base_url().'dashboard/product_list';
-
-				$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-    			$config['uri_segment'] = 2;
-			   	$config["total_rows"] = $this->ProductModel->getSearchInputBy($this->session->userdata('user_id'), false, $this->input->get('search'))->num_rows();
-			    $config['per_page'] = 5; 
-			    $this->pagination->initialize($config); 
-
-			    $param["total_rows"] = $config["total_rows"];
-			    $param['Dataproduct'] = $this->ProductModel->getSearchInputBy($this->session->userdata('user_id'), true, $this->input->get('search'), $config["per_page"], $offset);
-    			
-
-    			// parent :: header() ;
-
-    			$this->view_dashboard('dashboard/product_list', $param);
-				//$this->load->view('dashboard/product_list', $param);
-
-				// parent :: footer() ;
-		
-	}
-
 	public function product_stock()
 	{
 		$this->load->model('Cart_model', 'CartModel');
@@ -650,7 +751,7 @@ class Dashboard extends CI_Controller {
 				$config['page_query_string'] = TRUE;
 				$config['use_page_numbers'] = FALSE;
 				//$config['suffix'] = '?&search='.$data['search'] ;
-				$config['base_url'] = base_url().'dashboard/product_list';
+				$config['base_url'] = base_url().'dashboard/product_stock';
 
 				$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
     			$config['uri_segment'] = 2;
@@ -907,9 +1008,9 @@ class Dashboard extends CI_Controller {
 
 	function delete_gambar( $id = "" )
 	{	
-		$this->db->where('file_id', $id);
+		$this->db->where('product_image_id', $id);
 		
-		$query = $this->db->get('file');
+		$query = $this->db->get('product_image');
 		foreach ( $query->result() as $gambar ) {}
 			if(!is_dir($gambar->file_url)) {
 				if (file_exists($gambar->file_url)) {
@@ -917,14 +1018,16 @@ class Dashboard extends CI_Controller {
 				}
 			}
 		
-		$this->db->where('file_id', $id);
-		$this->db->delete('file');
+		$this->db->where('product_image_id', $id);
+		$this->db->delete('product_image');
 		
 		echo json_encode(array("status" => TRUE));
 	}
 
 	private function unggah_gambar( $product_id = "" )
     {
+    	$this->load->helper('string');
+
 			$images = $this->input->post('images');
 			$output_dir = "./users/product/images/";
 
@@ -933,7 +1036,7 @@ class Dashboard extends CI_Controller {
 		     //$dataSet[$i] = array ('points' => $points[$i], 'passes' => $passses[$i]);
 
 		   		if ($images[$i] != ""){
-		   		$id = user_id() . time() . mt_rand(000000, 999999);
+		   		$id = "IMG_" . user_id() . "_" . time() . "_" . mt_rand(0000, 9999);
 
 				list($type, $images[$i]) = explode(';', $images[$i]);
 		        list(, $images[$i])      = explode(',', $images[$i]);
@@ -943,19 +1046,25 @@ class Dashboard extends CI_Controller {
 
 
 		        $this->set_unggah_gambar(350, 350, $output_dir . $id . '.png', $output_dir . $id . '.png');
-		   		
+
+		        if ($i == 0) {
+					$this->db->where('product_id', $product_id);
+					$this->db->update('product', array('image' => "users/product/images/" . $id . '.png'));
+				}	
+
  					$database = array(
+ 						'product_image_id' => random_string('unique',8),
 						'product_id' => $product_id, //$id,
-						'file_name' => $id . '.png',
-						'type_file_id' => '1',
-						'file_url' => "users/product/images/" . $id . '.png', //. $fileName,
+						'image' => $id . '.png',
+						'image_url' => "users/product/images/" . $id . '.png', //. $fileName,
+						'sort_order' => ($i+1),
 						'input_by' => $this->session->userdata('user_id'),
 						'input_date' => date('Y-m-d H:i:s')
 					);
 
-					$this->db->insert('file', $database);
+					$this->db->insert('product_image', $database);
 				}
-		   }		
+		   }
 		
 	}
 
@@ -1010,16 +1119,16 @@ class Dashboard extends CI_Controller {
 	    if($dst_img)imagedestroy($dst_img);
 	    if($src_img)imagedestroy($src_img);
 	}
+
 	private function unggah_music( $id = "" )
     {
-		//$gambar_id = load_model("dashboard", "dashboard_model", "gambar_id");
 		$user_id = $this->session->userdata('user_id');
 		$output_dir = "./users/product/music/";
 				$fileCount = count($_FILES["music"]["name"]);
 				for ($i = 0; $i < $fileCount; $i++) {
 				$file_ext = substr($_FILES["music"]["name"][$i], strrpos($_FILES["music"]["name"][$i], '.')); //get file extention
 					
-                    $fileName = $id . $_FILES["music"]["name"][$i] ."_" . time() . $file_ext;
+                    $fileName = "SOUND_" . user_id() . "_" . time() . "_" . mt_rand(0000, 9999) . $file_ext;
 					if ( $_FILES["music"]["size"][$i] > 1 ) {
 						
 						// if (  ) { //filter extension file
@@ -1040,7 +1149,44 @@ class Dashboard extends CI_Controller {
 									'input_date' => date('Y-m-d H:i:s')
 								);
 
-								$this->db->insert('file', $database);
+								$this->db->insert('product_file', $database);
+						// }
+					}
+				}
+				
+	}
+
+
+	private function unggah_dokumen( $id = "" )
+    {
+		$user_id = $this->session->userdata('user_id');
+		$output_dir = "./users/product/dokumen/";
+				$fileCount = count($_FILES["dokumen"]["name"]);
+				for ($i = 0; $i < $fileCount; $i++) {
+				$file_ext = substr($_FILES["dokumen"]["name"][$i], strrpos($_FILES["dokumen"]["name"][$i], '.')); //get file extention
+					
+                    $fileName = "DOK_" . user_id() . "_" . time() . "_" . mt_rand(0000, 9999) . $file_ext;
+					if ( $_FILES["dokumen"]["size"][$i] > 1 ) {
+						
+						// if (  ) { //filter extension file
+							
+							move_uploaded_file($_FILES["dokumen"]["tmp_name"][$i], $output_dir . $fileName);
+
+							if ( $i == 0 ) {
+								$utama = 1;
+							} else {
+								$utama = 0;
+							}
+								$database = array(
+									'product_id' => $id,
+									'file_name' => $fileName,
+									'type_file_id' => '4',
+									'file_url' => "users/product/dokumen/" . $fileName,
+									'input_by' => $this->session->userdata('user_id'),
+									'input_date' => date('Y-m-d H:i:s')
+								);
+
+								$this->db->insert('product_file', $database);
 						// }
 					}
 				}
@@ -1050,11 +1196,9 @@ class Dashboard extends CI_Controller {
 
 	public function upload_photo(){
 
-        //$gambar_id = load_model("dashboard", "dashboard_model", "gambar_id");
         $id = time();
         $user_id = $this->session->userdata('user_id');
         $output_dir = "./users/photo/";
-                //$fileCount = count($_FILES["profile_picture"]["name"]);
              
                 $file_ext = '.png'; //substr($_FILES["profile_picture"]["name"], strrpos($_FILES["profile_picture"]["name"], '.')); //get file extention
                     
@@ -1073,7 +1217,7 @@ class Dashboard extends CI_Controller {
 
 								$database = array(
 									'avatar_name' 	=> $fileName,
-									'type_file_id' 	=> '4',
+									'type_file_id' 	=> '5',
 									'avatar_url'	=> "users/photo/" . $fileName,
 									'input_by' 		=> user_id(),
 									'input_date' 	=> date('Y-m-d H:i:s')

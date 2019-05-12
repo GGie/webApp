@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cart extends CI_Controller {
+class Cart extends MX_Controller {
 
 	public function __construct()
 	{
@@ -123,32 +123,49 @@ class Cart extends CI_Controller {
 	}
 
 	//order_status == 1
-	public function sku($param = "")
+	public function sku($id = null)
 	{
+		$this->load->model('alamat_model', 'AlamatModel');
 		$this->load->library('rajaongkir');
 
-		$order_id = $this->CartModel->getProductId($param);
-		if (!$order_id)
+		$data['product'] = $this->ProductModel->getProductId($id);
+
+		if ($data['product'] == null)
 			show_404();
 
-		
+		// $order_id = $this->CartModel->getProductId($param);
+		// if (!$order_id)
+		// 	show_404();
+
 		//echo ($_SERVER['HTTP_REFERER']);
-		parent :: header() ;
 		
-		// $data['ongkos'] = $this->rajaongkir->cost(501, 114, 10, "tiki");
-		$data['Dataproduct'] 	= $this->OrderModel->getSKU($param);
-		$data['seller'] 		= $this->ProductModel->getInputBy($param);
-		$data['product'] 		= $this->ProductModel->getProductId($param);
+		// // $data['ongkos'] = $this->rajaongkir->cost(501, 114, 10, "tiki");
+		// $data['Dataproduct'] 	= $this->OrderModel->getSKU($param);
+		// $data['seller'] 		= $this->ProductModel->getInputBy($param);
+		// $data['product'] 		= $this->ProductModel->getProductId($param);
 
-		$payment_order_id = $this->PaymentModel->getOrderId($data['Dataproduct']->invoice_id);
-		if ($payment_order_id) {
-			$this->session->set_flashdata('message', 'Yuk Selesaikan Pending Pembayaran Anda');
-			redirect(base_url('cart/invoice/' . $payment_order_id->order_id));
-		}
+		// $payment_order_id = $this->PaymentModel->getOrderId($data['Dataproduct']->invoice_id);
+		// if ($payment_order_id) {
+		// 	$this->session->set_flashdata('message', 'Yuk Selesaikan Pending Pembayaran Anda');
+		// 	redirect(base_url('cart/invoice/' . $payment_order_id->order_id));
+		// }
+		$data["alamat"] 	= $this->AlamatModel->getAlamatByUserId(user_id());
 
-		$this->load->view('cart/cart', $data);
+		$title['title'] = "Dashboard";
+		$title['buttonBack'] = "Dashboard";
+		$title['link'] = base_url('p/product/' . $id);
+
+		if (is_mobile()) {
+				parent :: header_modif($title) ;
+				$this->load->view('cart/sku_mobile', $data);
+			} else {
+				
+				//$this->load->view('cart/cart', $data);
+			}
+
 		
-		parent :: footer() ;
+		
+		parent :: footer_blank() ;
 	}
 
 	public function pay()

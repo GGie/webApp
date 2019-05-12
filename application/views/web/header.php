@@ -26,6 +26,7 @@
 
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Goopiz Lite">
 <meta name="msapplication-starturl" content="/">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 </head>
@@ -39,450 +40,395 @@
 		<div class="dot"></div>
 		<div class="dot"></div>
 		<div class="dot"></div>
-		<div class="dot"></div>
 	</div>
 </div>
+<!--     <style>
+  .initial_spinner_wrapper {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    position: absolute;
+  }
 
+  .initial_spinner {
+    position: relative;
+    top: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+  }
+
+  .initial_spinner:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 5px solid #fff;
+    border-top: 5px solid #2879fe;
+    border-radius: 50%;
+    content: '';
+    animation: initial_spin 1s linear infinite;
+  }
+
+  @keyframes initial_spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<div id="loader-wrapper">
+    <div id='initial-loader-wrapper' class='initial_spinner_wrapper'>
+      <div id='initial-loader' class='initial_spinner'></div>
+    </div>
+</div> -->
 <header>
-	<!-- MENU MOBILE -->
-	<nav class="panel-menu mobile-main-menu">
-		<span class="tt-icon icon-e-40"></span>
-		<ul>
-			<li>
-				<a href="<?php echo base_url() ?>">
-					<i class="icon-f-74"></i>
-					<span>HOME</span>
-				</a>
-			</li>
-			<?php if (is_login()) { ?>
-			<li>
-				<a href="<?php echo base_url('dashboard') ?>">
-					<i class="icon-f-19"></i>
-					<span>DASHBOARD</span>
-				</a>
-			</li>
-			<?php } ?>
-			<li>
-				<a href="<?php echo base_url() ?>">
-					<i class="icon-f-57"></i>
-					<span>KATEGORI</span>
-				</a>
-				<ul>
-					<?php foreach( $data as $kategori) { ?>
-					<li>
-						<a href="<?php echo base_url('p/detail/' . replace_url_char($kategori->slug)) ?>">
-							<i class="<?php echo $kategori->icon ?>"></i>
-							<span><?php echo $kategori->detail ?></span>
-						</a>
-						<ul>
-						<?php $parent = $this->kategoryModel->getIdParent($kategori->kategori_id); ?>
-						<?php foreach( $parent as $KategoriParent) { ?>
-							<li>
-								<a href="<?php echo base_url('p/detail/' . replace_url_char($KategoriParent->detail)) ?>">
-									<i class="<?php echo $KategoriParent->icon ?>"></i>
-									<span><?php echo strtoupper($KategoriParent->detail) ?></span>
-								</a>
-							</li>
-						<?php } ?>
-						</ul>
-					</li>
-					<?php } ?>
-				</ul>
-			</li>
-			
-		</ul>
+<style>
+.css-tjm0gv-unf-navbar-container {
+    height: 40px;
+    position: relative;
+}
+.css-1epzir5 {
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    position: fixed;
+    z-index: 21;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
+}
 
-		<div class="mm-navbtn-names">
-			<div class="mm-closebtn"><?php echo $this->lang->line('close'); ?></div>
-			<div class="mm-backbtn"><?php echo $this->lang->line('back'); ?></div>
-		</div>
-	</nav>
+.css-olgprp {
+    width: 100%;
+    height: 52px;
+/*    color: rgba(0, 0, 0, 0.7);
+    background-color: white;*/
+	color: #fff;
+    background-color: #2879fe;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: initial;
+    transition: background-color 0.24s ease 0s;
+}
 
-	<!-- HEADER MOBILE ICON -->
-	<div class="tt-mobile-header">
+.css-zpcvgg {
+    position: relative;
+    width: 48px;
+    height: 100%;
+    background-color: transparent;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+}
 
-		<div class="container-fluid tt-top-line">
-			<div class="tt-header-row">
-				<div class="tt-mobile-parent-menu">
-					<div class="tt-menu-toggle">
-						<i class="icon-03"></i>
-					</div>
+.css-zpcvgg::before {
+    content: "";
+    background-color: transparent;
+    background-size: 18px 16px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: auto;
+}
+
+
+.css-1a7d65i {
+    min-width: 0px;
+    padding-right: 0px;
+    flex: 1 1 0%;
+}
+.unf-navbar__title {
+    min-width: 0px;
+    padding-right: 8px;
+    flex: 1 1 0%;
+}
+
+.css-1q4sco0-unf-searchbar {
+    position: relative;
+    margin: 0px;
+    transition: margin 0.24s ease 0s;
+}
+.css-1q4sco0-unf-searchbar::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIzMnB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI+PGcgZmlsbD0iIzkyOTI5MiIgaWQ9Imljb24tMTExLXNlYXJjaCI+PHBhdGggZD0iTTE5LjQyNzExNjQsMjEuNDI3MTE2NCBDMTguMDM3MjQ5NSwyMi40MTc0ODAzIDE2LjMzNjY1MjIsMjMgMTQuNSwyMyBDOS44MDU1NzkzOSwyMyA2LDE5LjE5NDQyMDYgNiwxNC41IEM2LDkuODA1NTc5MzkgOS44MDU1NzkzOSw2IDE0LjUsNiBDMTkuMTk0NDIwNiw2IDIzLDkuODA1NTc5MzkgMjMsMTQuNSBDMjMsMTYuMzM2NjUyMiAyMi40MTc0ODAzLDE4LjAzNzI0OTUgMjEuNDI3MTE2NCwxOS40MjcxMTY0IEwyNy4wMTE5MTc2LDI1LjAxMTkxNzYgQzI3LjU2MjExODYsMjUuNTYyMTE4NiAyNy41NTc1MzEzLDI2LjQ0MjQ2ODcgMjcuMDExNzE4NSwyNi45ODgyODE1IEwyNi45ODgyODE1LDI3LjAxMTcxODUgQzI2LjQ0Mzg2NDgsMjcuNTU2MTM1MiAyNS41NTc2MjA0LDI3LjU1NzYyMDQgMjUuMDExOTE3NiwyNy4wMTE5MTc2IEwxOS40MjcxMTY0LDIxLjQyNzExNjQgTDE5LjQyNzExNjQsMjEuNDI3MTE2NCBaIE0xNC41LDIxIEMxOC4wODk4NTExLDIxIDIxLDE4LjA4OTg1MTEgMjEsMTQuNSBDMjEsMTAuOTEwMTQ4OSAxOC4wODk4NTExLDggMTQuNSw4IEMxMC45MTAxNDg5LDggOCwxMC45MTAxNDg5IDgsMTQuNSBDOCwxOC4wODk4NTExIDEwLjkxMDE0ODksMjEgMTQuNSwyMSBMMTQuNSwyMSBaIiBpZD0ic2VhcmNoIi8+PC9nPjwvZz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.css-1q4sco0-unf-searchbar .unf-searchbar__input {
+    display: block;
+    height: 36px;
+    width: 100%;
+    background-color: rgb(246, 246, 246);
+    color: rgba(49, 53, 59, 0.68);
+    font-size: 1rem;
+    line-height: 20px;
+    padding: 12px 24px 12px 28px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    border-radius: 8px;
+    outline: none;
+}
+.css-1jzsl4r {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHhtbG5zPSJod…AwIDAgMCA3IDB6IiBmaWxsPSIjOUZBNkIwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
+    background-size: 16px;
+    background-color: transparent;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    font-size: 0px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    transition: transform 0.32s ease 0s;
+}
+.css-1vy75ml {
+    background-color: transparent;
+    margin: 0px 4px 0px 10px;
+    color: #fff!important;
+}
+.css-79elbk {
+    position: relative;
+}
+.css-a9tdsy {
+    height: 16px;
+    max-width: 26px;
+    background-color: rgb(234, 33, 45);
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    z-index: 1;
+    font-weight: 800;
+    border-radius: 8px;
+    padding: 7px;
+}
+.css-1g63vce {
+    background-color: transparent;
+    margin: 0px 8px 0px 4px;
+}
+.css-77ay6q {
+    position: relative;
+    background-color: transparent;
+    margin: 0px 16px 0px 0px;
+    padding: 0px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+}
+
+/* akun profile */
+.css-1q0b0je-unf-card {
+    display: block;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(49, 53, 59, 0.12) 0px 1px 6px 0px;
+    background-image: url(https://images.all-free-download.com/images/graphicthumb/transparent_bubbles_with_background_vector_541557.jpg);
+    background-size: cover;
+    margin: 16px 0px;
+    padding: 16px;
+    overflow: hidden;
+    background-position: center top;
+    border-radius: 4px !important;
+}
+.css-1kukc4r {
+    display: flex;
+    margin-bottom: 16px;
+}
+.css-1mf51g1 {
+    width: 40px;
+    height: 40px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 6px 0px;
+    border-radius: 50%;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.css-1c2mwzn {
+    margin-left: 16px;
+    flex-direction: column;
+    overflow: hidden;
+}
+.css-2wqymv {
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    line-height: 22px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0px;
+    overflow: hidden;
+}
+.css-1igmekv {
+    font-size: 12px;
+    color: #000;
+    font-style: italic;
+}
+/* akun profile EOF */
+</style>
+
+<nav class="css-tjm0gv-unf-navbar-container">
+    <div class="css-1epzir5">
+        <div class="unf-navbar css-olgprp">
+            <!-- <button class="css-zpcvgg" role="button" aria-label="navbar-menu"></button> -->
+            <div class="tt-mobile-parent-menus">
+				<div class="tt-menu-toggle">
+					<span class="css-1vy75ml">
+		            	<i class="icon-h-27" style="font-size: 18px;color: #fff!important"></i>
+		            </span>
 				</div>
-				<!-- search -->
-				<div class="tt-mobile-parent-search tt-parent-box"></div>
-				<!-- /search -->
-				<!-- cart -->
-
-				<div class="tt-mobile-parent-cart tt-parent-box"></div>
-				<!-- /cart -->
-				<!-- account -->
-				<div class="tt-mobile-parent-account tt-parent-box"></div>
-				<!-- /account -->
-				<!-- currency -->
-				<!-- /currency -->
 			</div>
-		</div>
-	</div>
+            
+            <span class="css-1vy75ml">
+            	<img src="<?php echo base_url('favicon.ico') ?>" width="28px">
+            </span>
+            <form action="<?php echo site_url('p/search') ?>" method="get" class="unf-navbar__title css-1a7d65i">
+	            <div>
+	                <div class="css-1q4sco0-unf-searchbar">
+	                    <input name="search" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
+	                </div>
+	            </div>
+        	</form>
+            <a href="<?php echo site_url('messages') ?>" class="css-77ay6q">
+            	<i class="icon-g-88" style="font-size: 18px;color: #fff"></i>
+            </a>
+            <a href="<?php echo site_url('dashboard') ?>" class="css-77ay6q">
+            	<i class="icon-h-23" style="font-size: 18px;color: #fff"></i>
+            </a>
 
-	<!-- tt-desktop-header -->
-	<div class="tt-desktop-header headerunderline">
-		<!-- CATEGORIES -->
-		<div class="container small-header">
-			<div class="tt-header-holder">
-				<div class="tt-col-obj tt-obj-logo">
-					<!-- logo -->
-					<a class="" href="<?php echo base_url() ?>">
-						<img src="<?php echo base_url('assets') ?>/images/custom/logo.png" alt="" height="39px" style="padding-right: 10px">
+        </div>
+    </div>
+</nav>
+<nav class="panel-menu mobile-main-menu">
+
+
+	<span class="tt-icon icon-e-40"></span>
+
+	<ul>
+		<li>
+		<!-- profile -->
+		<div class="unf-card css-1q0b0je-unf-card">
+		    <div class="css-xs3fld">
+		        <div role="presentation" class="css-1kukc4r">
+		            <img class="css-1mf51g1" src="<?php echo get_photo(user_id()) ?>" alt="profile">
+		            <div class="css-1c2mwzn">
+		                <div class="css-2wqymv"><?php echo ucwords($user->fullname) ?></div><span class="css-1igmekv">Personal Account</span></div>
+		        </div>
+		    </div>
+		</div>
+		</li>
+		<!-- profile EOF -->
+		<li>
+			<a href="<?php echo base_url() ?>">
+				<i class="icon-f-74"></i>
+				<span>BERANDA</span>
+			</a>
+		</li>
+		<?php if (is_login()) { ?>
+		<li>
+			<a href="<?php echo base_url('dashboard') ?>">
+				<i class="icon-f-19"></i>
+				<span>DASHBOARD</span>
+			</a>
+		</li>
+		<?php } ?>
+		<li>
+			<a href="<?php echo base_url() ?>">
+				<i class="icon-f-57"></i>
+				<span>KATEGORI</span>
+			</a>
+			<ul>
+				<?php foreach( $data as $kategori) { ?>
+				<li>
+					<a href="<?php echo base_url('p/detail/' . replace_url_char($kategori->slug)) ?>">
+						<i class="<?php echo $kategori->icon ?>"></i>
+						<span><?php echo $kategori->detail ?></span>
 					</a>
-					<!-- /logo -->
-				</div>
-				<div class="tt-col-obj tt-obj-menu-categories tt-desctop-parent-menu-categories">
-					<div class="tt-menu-categories">
-						<button class="tt-dropdown-toggle">
-							<i class="icon-f-39"></i>
-							KATEGORI BELANJA
-						</button>
-						<div class="tt-dropdown-menu">
-							<nav>
-								<ul>
-								<?php foreach( $data as $kategori) { ?>
-									<li>
-										<a href="<?php echo base_url('p/detail/' . replace_url_char($kategori->slug)) ?>">
-											<i class="<?php echo $kategori->icon ?>"></i>
-											<span><?php echo $kategori->detail ?></span>
-										</a>
-										<div class="dropdown-menu size-md">
-									       <div class="dropdown-menu-wrapper">
-									       		<div class="row">
-													<div class="col-sm-4">
-														<div class="row tt-col-list">
-															
-															<div class="col-sm-4">
-																<a class="tt-title-submenu" href="javascript:void(0)">
-																	DETAIL
-																	<img  src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/custom/header-category-02.jpg" alt="">
-																</a>
-																<ul class="tt-megamenu-submenu">
-																<?php $parent = $this->kategoryModel->getIdParent($kategori->kategori_id); ?>
-																<?php foreach( $parent as $KategoriParent) { ?>
-																	<li><a href="<?php echo base_url('p/detail/' . replace_url_char($KategoriParent->slug)) ?>"><span class="tt-badge tt-fatured"><?php echo $KategoriParent->detail ?></span></a></li>
-																<?php } ?>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
+					<ul>
+					<?php $parent = $this->kategoryModel->getIdParent($kategori->kategori_id); ?>
+					<?php foreach( $parent as $KategoriParent) { ?>
+						<li>
+							<a href="<?php echo base_url('p/detail/' . replace_url_char($KategoriParent->detail)) ?>">
+								<i class="<?php echo $KategoriParent->icon ?>"></i>
+								<span><?php echo strtoupper($KategoriParent->detail) ?></span>
+							</a>
+						</li>
+					<?php } ?>
+					</ul>
+				</li>
+				<?php } ?>
+			</ul>
+		</li>
+		<li>
+			<a href="<?php echo base_url('page/about') ?>">
+				<i class="icon-f-19"></i>
+				<span>TENTANG</span>
+			</a>
+			<ul>
+				<li>
+					<a href="<?php echo base_url('page/privacy') ?>">
+						<i class="icon-f-19"></i>
+						<span>KEBIJAKAN PRIVASI</span>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo base_url('page/term') ?>">
+						<i class="icon-f-19"></i>
+						<span>SYARAT & KETENTUAN</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
 
-												<div class="row">
-													<div class="col-sm-12">
-														<a href="listing-left-column.html" class="tt-promo-02">
-															<img src="<?php echo base_url('assets') ?>/images/custom/header-promo-01.jpg" alt="">
-															<div class="tt-description tt-point-h-l">
-																<div class="tt-description-wrapper">
-																	<div class="tt-title-small">SUMMER <span class="tt-base-color">2018</span></div>
-																	<div class="tt-title-large">NEW ARRIVALS</div>
-																</div>
-															</div>
-														</a>
-													</div>
-												</div>
-									       </div>
-
-									    </div>
-									</li>
-								<?php } ?>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-
-				<!-- menu -->
-				<div class="tt-col-obj tt-obj-menu">
-					<!-- tt-menu -->
-					<div class="tt-desctop-parent-menu tt-parent-box">
-						<div class="tt-desctop-menu">
-							<nav>
-								<ul>
-									<li class="dropdown">
-										<div class="tt-col-obj tt-obj-search-type2">
-											<div class="tt-search-type2">
-									 			<!-- tt-search -->
-												<form action="<?php echo site_url('p/search') ?>" method="get" role="search">
-													<i class="icon-f-85"></i>
-													<input class="tt-search-input" type="search" name="search" id="search" placeholder="GOO PRODUCTS..." aria-label="SEARCH PRODUCTS..." autocomplete="off" value="<?php echo $this->input->get('search') ?>" data-tooltip="yuk cari apa aja yang kamu suka" data-tposition="bottom">
-													
-													<div class="search-results" style="display: none;"></div>
-												</form>
-												<!-- /tt-search -->
-											</div>
-										</div>
-									</li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-					<!-- /tt-menu -->
-				</div>
-				<div class="tt-col-obj tt-obj-options obj-move-right">
-					<!-- tt-search -->
-					<div class="tt-desctop-parent-search tt-parent-box tt-obj-desktop-hidden">
-						<div class="tt-search tt-dropdown-obj">
-							<button class="tt-dropdown-toggle tt-hidden-desctope" data-tooltip="Search" data-tposition="bottom">
-								<i class="icon-f-85"></i>
-							</button>
-							<div class="tt-dropdown-menu">
-								<div class="container">
-									<form action="<?php echo site_url('p/search') ?>" method="get" role="search">
-										<div class="tt-col">
-											<input type="text" class="tt-search-input" name="search" id="search" placeholder="GO PRODUCTS..." autocomplete="off" value="<?php echo $this->input->get('search') ?>">
-											<button class="tt-btn-search" type="submit"></button>
-										</div>
-										<div class="tt-col">
-											<button class="tt-btn-close icon-g-80"></button>
-										</div>
-										<div class="tt-info-text">
-											What are you Looking for?
-										</div>
-										<div class="search-results">
-											<ul>
-												<li>
-										            <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-03.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																<span class="new-price">$14</span>
-																<span class="old-price">$24</span>
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-										        <li>
-										           <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-02.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																$24
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-										        <li>
-										           <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-01.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																$14
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-										        <li>
-										           <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-04.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																$24
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-										        <li>
-										           <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-05.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																$17
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-										        <li>
-										           <a href="product.html">
-										            	<div class="thumbnail"><img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo base_url('assets') ?>/images/product/product-06.jpg" alt=""></div>
-										            	<div class="tt-description">
-										            		<div class="tt-title">Flared Shift Bag</div>
-										            		<div class="tt-price">
-																$20
-															</div>
-										            	</div>
-										            </a>
-										        </li>
-											</ul>
-											<button type="button" class="tt-view-all">View all products</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /tt-search -->
-					<!-- tt-cart -->
-					<div class="tt-desctop-parent-cart tt-parent-box">
-						<div class="tt-cart tt-dropdown-obj" data-tposition="bottom">
-							<?php if (is_login()) { ?>
-
-							<button class="tt-dropdown-toggle">
-								<i class="icon-f-39"></i>
-								<?php if ($cart->num_rows() > 0) { ?>
-								<span class="tt-badge-cart"><?php echo $cart->num_rows() ?></span>
-							<?php } ?>
-							</button>
-							<?php } else { ?>
-								<a href="<?php echo site_url('auth/login') ?>" class="btn btn-border btn-small"><?php echo $this->lang->line('login') ?></a>
-							<?php } ?>
-							<div class="tt-dropdown-menu">
-								<div class="tt-mobile-add">
-									<h6 class="tt-title">SHOPPING CART</h6>
-									<button class="tt-close">Close</button>
-								</div>
-								<div class="tt-dropdown-inner">
-									<div class="tt-cart-layout">
-										<!-- layout emty cart -->
-										<!-- <a href="empty-cart.html" class="tt-cart-empty">
-											<i class="icon-f-39"></i>
-											<p>No Products in the Cart</p>
-										</a> -->
-										<div class="tt-cart-content">
-
-										<?php if (empty( $cart->result() )){ ?>
-											<div class="container-indent nomargin">
-												<div class="tt-empty-search">
-													<span class="tt-icon icon-e-40"></span>
-												</div>
-											</div>
-										<?php } ?>
-
-
-											<div class="tt-cart-list">
-											<?php foreach ($cart->result() as $carts) { ?>
-												<div class="tt-item <?php echo $carts->product_id ?>">
-													<a href="<?php echo base_url('p/product/' . $carts->product_id . '-' . replace_url_char($carts->product_name)) ?>">
-														<div class="tt-item-img">
-															<img src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($carts->product_id) ?>" alt="">
-														</div>
-														<div class="tt-item-descriptions">
-															<h2 class="tt-title"><?php echo xxs_filter($carts->product_name) ?></h2>
-															<ul class="tt-add-info">
-																<li>Status : <?php echo xxs_filter($carts->status) ?></li>
-															</ul>
-															<div class="tt-price">Rp. <?php echo @number_format(@$carts->price,0,',','.'); ?></div>
-														</div>
-													</a>
-													<div class="tt-item-close">
-														<a href="javascript:void(0)" onclick="delete_modal_notif('<?php echo $carts->product_id ?>')" class="tt-btn-close"></a>
-													</div>
-												</div>
-											<?php } ?>
-											</div>
-											<div class="tt-cart-btn">
-												<div class="tt-item">
-													<a href="<?php echo base_url('dashboard/product_buy') ?>" class="btn btn-border">LIHAT SEMUA...</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /tt-cart -->
-					<!-- tt-account -->
-					<div class="tt-desctop-parent-account tt-parent-box">
-						<div class="tt-account tt-dropdown-obj">
-						<?php if (is_login()) { ?>
-							<button class="tt-dropdown-toggle"  data-tooltip="My Account" data-tposition="bottom"><i class="icon-f-94"></i></button>
-							<div class="tt-dropdown-menu">
-								<div class="tt-mobile-add">
-									<button class="tt-close">Close</button>
-								</div>
-								<div class="tt-dropdown-inner">
-									<ul>
-									    <li><a href="<?php echo base_url('dompetGoo/detail') ?>" class="btn btn-gie" style="width:100%"><i class="icon-e-54"></i><?php echo number_rp($user->saldo) ?></a></li>
-									    <li><a href="<?php echo base_url('dashboard/account_setting') ?>"><i class="icon-f-94"></i>Account</a></li>
-									<!--     <li><a href="wishlist.html"><i class="icon-n-072"></i>Wishlist</a></li>
-									    <li><a href="compare.html"><i class="icon-n-08"></i>Compare</a></li> -->
-									    <li><a href="<?php echo site_url('dashboard') ?>"><i class="icon-f-68"></i>Dashboard</a></li>
-									    <!-- <li><a href="login.html"><i class="icon-f-76"></i>Sign In</a></li> -->
-									    <li><a href="<?php echo site_url('auth/logout') ?>"><i class="icon-f-77"></i><?php echo $this->lang->line('logout'); ?></a></li>
-									</ul>
-								</div>
-							</div>
-						<?php } else { ?>
-								<a href="<?php echo site_url('auth/register') ?>" class="btn btn-border btn-small"><?php echo $this->lang->line('register') ?></a>
-						<?php } ?>
-							
-						</div>
-					</div>
-					<!-- /tt-account -->
-
-					<!-- tt-langue and tt-currency -->
-					<div class="tt-desctop-parent-multi tt-parent-box">
-						<div class="tt-multi-obj tt-dropdown-obj">
-							<?php if (is_login()) { ?>
-								<button class="tt-dropdown-toggle" data-tooltip="Settings" data-tposition="bottom"><i class="icon-f-64"></i></button>
-							<?php } ?>
-							<div class="tt-dropdown-menu">
-								<div class="tt-mobile-add">
-									<button class="tt-close">Close</button>
-								</div>
-								<div class="tt-dropdown-inner" style="padding: 4px !important">
-									<?php if($messages->num_rows() > 0) { ?>
-									<?php foreach($messages->result() as $msg) { ?>
-									<a href="<?php echo base_url($msg->link) ?>">
-									<blockquote class="tt-blockquote" style="margin-top: 2px; padding: 6px!important">
-                                    	<div class="row text-left">
-                                    		<div class="col-lg-12 col-md-12 col-12">
-                                        		<span class=""><?php echo $msg->message_detail ?> <br><?php if ($msg->param != "") { echo "#" . $msg->param; } ?></span>
-                                        		<br><i style="font-size: 10px"><?php echo format_indo($msg->input_date) ?></i>
-                                        	</div>
-                                        </div>
-                                    </blockquote>
-                                    </a>
-                                	<?php } ?>
-                                	<?php } else { ?>
-                                		<div class="container-indent nomargin">
-											<div class="tt-empty-search">
-												<span class="tt-icon icon-g-22"></span>
-											</div>
-										</div>
-                                	<?php } ?>
-
-											<div class="tt-cart-btn">
-												<div class="tt-item">
-													<a href="<?php echo base_url('dashboard/product_buy') ?>" class="btn-link">Lihat Semua...</a>
-												</div>
-											</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<!-- /tt-langue and tt-currency -->
-				</div>
-			</div>
-		</div>
+	<div class="mm-navbtn-names">
+		<div class="mm-closebtn"><?php echo $this->lang->line('close'); ?></div>
+		<div class="mm-backbtn"><?php echo $this->lang->line('back'); ?></div>
 	</div>
-	<!-- /tt-desktop-header -->
-	<!-- stuck nav -->
-	<div class="tt-stuck-nav">
-		<div class="container">
-			<div class="tt-header-row ">
-				<div class="tt-stuck-desctop-menu-categories"></div>
-				<div class="tt-stuck-parent-menu"></div>
-				<div class="tt-stuck-mobile-menu-categories"></div>
-				<div class="tt-stuck-parent-search tt-parent-box"></div>
-				<div class="tt-stuck-parent-cart tt-parent-box"></div>
-				<div class="tt-stuck-parent-account tt-parent-box"></div>
-				<div class="tt-stuck-parent-multi tt-parent-box"></div>
-			</div>
-		</div>
-	</div>
+</nav>
+
 </header>
 
 <script src="<?php echo base_url('assets') ?>/external/jquery/jquery.min.js"></script>

@@ -214,7 +214,7 @@ a:hover, a:active, a:focus {
 </style>
 <div class="container bootstrap snippet">
     <div class="row">
-		<div class="col-md-4 bg-white p-0">
+		<div class="col-md-12 bg-white p-0">
             
             <!-- =============================================================== -->
             <!-- member list -->

@@ -4,6 +4,18 @@
  * Helper untuk pengaturan web
  */
 
+
+function is_mobile(){
+  $init =& get_instance();
+
+  $init->load->library('Mobile_Detect');
+  $detect = new Mobile_Detect;
+    if (!$detect->isMobile()) {
+        return false;
+    } else {
+        return true;
+    }
+}
 function product_stock($operator, $qty, $product_id){
     $init =& get_instance();
 
@@ -324,15 +336,19 @@ function increment_product_view($paramId)
   $init->db->where('product_id', $paramId);
   $query = $init->db->get('product');
   
-  $view = $query->row()->view + 1;
+  $viewed = $query->row()->viewed + 1;
 
   $init->db->where('product_id', $paramId);
-  $init->db->update('product', array('view' => $view));
-  return $view;
+  $init->db->update('product', array('viewed' => $viewed));
+  return $viewed;
 }
 
 function xxs_filter($param){
   return nl2br(htmlspecialchars($param, ENT_QUOTES, 'UTF-8'));
+}
+
+function description($param){
+  return substr(nl2br(htmlspecialchars($param, ENT_QUOTES, 'UTF-8')), 0, 150);
 }
 
 function replace_url_char($text)
@@ -386,22 +402,33 @@ function get_photo($userId) {
   
 }
 
+function getProductPhotoUrl( $urlImage ) {
+  $init =& get_instance();
+
+  $photo = base_url('assets/images/custom/noimage.png');
+
+  if (isset($urlImage))
+    $photo = base_url($urlImage);
+
+  return $photo;
+  
+}
+
 function getProductPhoto( $paramId ) {
   $init =& get_instance();
   
   //$paramId == Product_id
 
-  $init->db->where('Product_id', $paramId); // Where
-  $init->db->where('type_file_id', 1); // Where
+  $init->db->where('product_id', $paramId); // Where
   // $init->db->where('type_file_id', 1); // Where
   $init->db->order_by('input_date', 'desc'); // Order by
   $init->db->limit(1);
-  $query = $init->db->get('file');
+  $query = $init->db->get('product_image');
 
   $photo = base_url('assets/images/custom/noimage.png');
 
-  if (isset($query->row()->file_url))
-    $photo = base_url($query->row()->file_url);
+  if (isset($query->row()->image_url))
+    $photo = base_url($query->row()->image_url);
 
   return $photo;
   

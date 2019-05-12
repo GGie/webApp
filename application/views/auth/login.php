@@ -178,6 +178,33 @@ body {
         z-index: 1;
     }   
 </style>
+<link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/theme.css">
+<div id="loader-wrapper">
+    <div id="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+<script src="<?php echo base_url('assets') ?>/external/elevatezoom/jquery.elevatezoom.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/slick/slick.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/panelmenu/panelmenu.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/instafeed/instafeed.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/countdown/jquery.plugin.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/countdown/jquery.countdown.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/lazyLoad/lazyload.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/js/main.js"></script>
+<script src="<?php echo base_url('assets') ?>/js/jquery.expander.js"></script>
+<!-- form validation and sending to mail -->
+<script src="<?php echo base_url('assets') ?>/external/form/jquery.form.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/form/jquery.validate.min.js"></script>
+<script src="<?php echo base_url('assets') ?>/external/form/jquery.form-init.js"></script>
             <div class="container">
                 <div class="row col-lg-8 card">
              

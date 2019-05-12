@@ -2,17 +2,22 @@
 
 class Kategory_model extends CI_Model {
 	
-	public function __construct()
-	{
-		//parent::__construct();
-	}
-	
 	public function getAll()
 	{
 		$this->db->select('*');
 		$this->db->from('kategory');
 		$this->db->where('is_aktif', 1);
 		$this->db->where('id_parent', 0);
+		
+		return $this->db->get()->result();
+	}
+
+	public function idFom($param)
+	{
+		$this->db->select('*');
+		$this->db->from('kategory');
+		$this->db->where('is_aktif', 1);
+		$this->db->where('idForm', $param);
 		
 		return $this->db->get()->result();
 	}

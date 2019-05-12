@@ -5,8 +5,7 @@ class User extends MX_Controller {
 
 	public function __construct()
 	{
-		parent :: __construct() ;		
-		
+		parent :: __construct();
 	}
 
 	public function index($userid = NULL)
@@ -14,9 +13,8 @@ class User extends MX_Controller {
 
 	}
 
-	public function users($user_id = ""){
+	public function users($user_id, $info = null){
 		$this->load->model(('Product_model'), 'ProductModel');
-		$this->load->model('User_model', 'UsersModel');
 
 		//parameter search
 		$param['search'] = $this->input->get('search');
@@ -25,7 +23,6 @@ class User extends MX_Controller {
 		$param['max'] = $this->input->get('max');
 		$param['user_id'] = $user_id;
 
-    	if (user_id()){
 
     			$this->load->library('pagination');
     			            // $config["base_url"] = base_url() . "/home/";
@@ -51,7 +48,7 @@ class User extends MX_Controller {
 				$config['page_query_string'] = TRUE;
 				$config['use_page_numbers'] = FALSE;
 				//$config['suffix'] = '?&search='.$data['search'] ;
-				$config['base_url'] = base_url().'users/users.php?search='.$param['search'].'&order_by='.$param['order_by'].'&min='.$param['min'].'&max='.$param['max'];
+				$config['base_url'] = base_url().'u/' . $user_id . '?search='.$param['search'].'&order_by='.$param['order_by'].'&min='.$param['min'].'&max='.$param['max'];
 
 				$offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
     			$config['uri_segment'] = 2;
@@ -62,13 +59,27 @@ class User extends MX_Controller {
 			    $param["total_rows"] = $config["total_rows"];
 			    $param['product'] = $this->ProductModel->getSearch(true, $param, $config["per_page"], $offset);
     			
+    			
+
+
     			$title['title'] = $param['search'] . " | Goopiz";
     			parent :: header($title) ;
 
-    			$this->load->view('users/users', $param);
+    			$param['users']	= $this->UserModel->getByUserId($user_id);
+    			if (is_mobile()) {
+    				if (!isset($info)) {
+						$this->load->view('users/profile_mobile', $param);
+    				} else {
+    					$this->load->view('users/info_mobile', $param);
+    				}
+
+				} else {
+					//parent :: header($title) ;
+					//$this->load->view('product/product_index', $data);
+				}
+    			
 
     			parent :: footer_blank() ;
-		}
 	}
 
 

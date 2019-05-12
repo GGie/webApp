@@ -121,9 +121,6 @@ body {
 </style>
 
 <div id="content-block">
-
-
-
 		<div class="container-fluid custom-container">
 			<div class="row">
 				

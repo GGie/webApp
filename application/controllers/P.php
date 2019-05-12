@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class P extends CI_Controller {
+class P extends MX_Controller {
 
 	public function __construct()
 	{
@@ -146,6 +146,9 @@ class P extends CI_Controller {
 		$data['product'] = $this->ProductModel->getProductId($id);
 		$data['commentsRows'] = $this->CommentsModel->getByProductId($id)->num_rows();
 		$data['comments'] = $this->CommentsModel->getComment($id, true);
+		$data['images'] = $this->ProductModel->getImage($id);
+		$data['music'] = $this->ProductModel->getMusic($id);
+		$data['document'] = $this->ProductModel->getDocx($id);
 
 		if ($data['product'] == null)
 			show_404();
@@ -158,12 +161,86 @@ class P extends CI_Controller {
 		}
 
 		$title['title'] = $data['product']->product_name;
-		$title['desc'] = meta_desc($data['product']->product_desc);
-		parent :: header($title) ;
-
-		$this->load->view('product/product_index', $data);
+		$title['desc'] = meta_desc($data['product']->description);
 		
-		parent :: footer() ;
+
+		if (is_mobile()) {
+			$this->load->view('product/product_mobile', $data);
+		} else {
+			parent :: header($title) ;
+			//$this->load->view('product/product_index', $data);
+		}
+		
+		parent :: footer_blank() ;
+	}
+
+	public function report_r($param = null){
+		//redirect jika belum login
+		if (!is_login()){
+			redirect(site_url('auth/login'));
+		}
+
+		if ($param == "")
+			exit("Error(0)");
+
+		$title['title'] = "Report Messages";
+		$title['link'] = base_url();
+		parent :: header_modif($title);
+
+		$data['return'] = $param;
+
+		if (is_mobile()) {
+			$this->load->view('product/report_messages', $data);
+		} else {
+			//blank
+		}
+
+
+		parent :: footer_blank() ;
+	}
+
+	public function report($productId)
+	{
+		//redirect jika belum login
+		if (!is_login()){
+			redirect(site_url('auth/login'));
+		}
+		
+		
+		$data["product"] = $this->ProductModel->getProductId($productId);
+
+		if ($data["product"] == null)
+			exit("Product tidak ditemukan");
+
+		//save submit
+		if($this->input->post('report_desc')){
+			$return = $this->ProductModel->getProductReport($productId, user_id());
+
+			if ($return == null){ 
+				$this->db->insert('product_report',array(
+					'desc'			=> $this->input->post('report_desc'),
+					'product_id'	=> $productId,
+					'user_id'		=> user_id(),
+					'input_by'		=> user_id(),
+					'input_date'	=> date('Y-m-d H:i:s')
+				));
+				redirect(base_url('p/report_r/true'));
+			} else {
+				redirect(base_url('p/report_r/false'));
+			}
+		}
+
+		$title['title'] = "Report Produk";
+		$title['link'] = base_url();
+		parent :: header_modif($title);
+
+		if (is_mobile()) {
+			$this->load->view('product/report_product', $data);
+		} else {
+			//blank
+		}
+		
+		parent :: footer_blank() ;
 	}
 
 	public function comment( $param = "" )

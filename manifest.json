@@ -1,13 +1,29 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
-  "start_url": "index.html",
+  "name": "Goopiz Lite",
+  "short_name": "Goopiz",
+  "lang": "en-ID",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone",
-  "icons": [{
-    "src": "assets/imgs/logo.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }],
-  "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+  "theme_color": "#4e8ef7",
+  "background_color": "#FFFFFF",
+  "orientation": "portrait",
+  "gcm_sender_id": "540868316921",
+  "permissions": ["gcm"],
+  "icons": [
+    {
+      "src": "assets/imgs/logo.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

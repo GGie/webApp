@@ -16,7 +16,7 @@ class Auth extends MX_Controller {
 		if($this->input->post('url_old')) {
 			return $this->input->post('url_old');
 		} else {
-			return site_url('dashboard');
+			return site_url();
 		}
 	}
 

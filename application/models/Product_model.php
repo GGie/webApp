@@ -2,7 +2,16 @@
 
 class Product_model extends CI_Model {
 	
-	
+	public function getProductReport($productId, $userId)
+	{
+		$this->db->select('a.id');
+		$this->db->from('product_report as a');
+		$this->db->where('a.product_id', $productId);
+		$this->db->where('a.user_id', $userId);
+		
+		return $this->db->get()->row();
+	}
+
 	public function getProductAll($limit = 5, $page = 1)
 	{
 		$this->db->select('a.*, b.detail, c.user_id, c.firstname, c.lastname, c.fullname');
@@ -56,10 +65,11 @@ class Product_model extends CI_Model {
 
 	public function getImage($param)
 	{
-		$this->db->select('file_url');
-		$this->db->from('file');
+		$this->db->select('image_url');
+		$this->db->from('product_image');
 		$this->db->where('product_id', $param);
-		$this->db->where('type_file_id', 1); //1 == tipe images
+		//$this->db->where('type_file_id', 1); //1 == tipe images
+		$this->db->order_by('sort_order', 'asc');
 		
 		return $this->db->get()->result();
 	}
@@ -87,10 +97,20 @@ class Product_model extends CI_Model {
 
 	public function getMusic($param)
 	{
-		$this->db->select('file_url');
-		$this->db->from('file');
+		$this->db->select('file_name, file_url');
+		$this->db->from('product_file');
 		$this->db->where('product_id', $param);
 		$this->db->where('type_file_id', 2); //2 == tipe music
+		
+		return $this->db->get()->result();
+	}
+
+	public function getDocx($param)
+	{
+		$this->db->select('file_name, file_url');
+		$this->db->from('product_file');
+		$this->db->where('product_id', $param);
+		$this->db->where('type_file_id', 4); //2 == tipe music
 		
 		return $this->db->get()->result();
 	}
@@ -247,6 +267,28 @@ class Product_model extends CI_Model {
 		$this->db->where('b.slug', $search);
 		// $this->db->order_by('product_id', 'RANDOM');
 		
+		if ( $pages )
+		$this->db->limit($limit, $page);
+		
+		return $this->db->get();
+	}
+
+
+	//NEW
+	public function getProductSell($input_by, $pages = false, $search, $limit = 20, $page = 1)
+	{
+
+		if ( $search != 0 || $search != "" ) {
+			$this->db->like('product_name', $search);
+		}
+		$this->db->select('a.*, b.detail, c.firstname, c.lastname');
+		$this->db->from('product as a');
+		$this->db->join('kategory as b', 'b.kategori_id = a.kategori_id');
+		$this->db->join('users as c', 'c.user_id = a.input_by');
+		$this->db->where('a.input_by', $input_by);
+		$this->db->where('a.product_type =', 1);
+		$this->db->order_by("a.input_date", "DESC");
+
 		if ( $pages )
 		$this->db->limit($limit, $page);
 		

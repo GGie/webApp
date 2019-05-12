@@ -8,7 +8,19 @@
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=no, width=device-width">
     <link rel="stylesheet" rel="stylesheet" media="screen" href="<?php echo base_url() ?>assets/mobile/mobile_login.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-   
+
+<div id="loader-wrapper">
+  <div id="loader">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
   </head>
   <body >
     <noscript><div>Website ini memerlukan javascript untuk dapat ditampilkan.</div></noscript>
@@ -98,8 +110,7 @@
 </div>
   
   <link rel="stylesheet" rel="stylesheet" media="screen" href="<?php echo base_url() ?>/assets/css/amaran.min.css">
-  <script src="<?php echo base_url() ?>/assets/js/jquery-2.1.4.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/js/jquery-ui.min.js"></script>
+  <script src="<?php echo base_url('assets/external/jquery/jquery.min.js') ?>"></script>
   <script src="<?php echo base_url('assets/js/jquery.amaran.min.js') ?>"></script>
 <?php if ($this->session->flashdata('message')) { ?>
   <script type="text/javascript">

@@ -3,25 +3,42 @@
 <div class="ui-block">
 
 		<article class="hentry post has-post-thumbnail">
-		
-			<div class="row" style="margin-right: 10px;margin-left: 0 !important">
-				<img src="<?php echo get_photo($produk->user_id) ?>" alt="author" width="40px" height="40px" style="margin-right: 10px;">
-		
-				<div class="author-date">
-					<a class="text-right" href="<?php echo base_url('u/' . $produk->user_id) ?>"><?php echo $produk->fullname ?></a>
-					<div class="">
-						<time class="published" datetime="2004-07-24T18:18">
-							<?php echo format_indo($produk->input_date) ?>
-						</time>
-					</div>
-				</div>
-		
+			<!-- Head -->
+			<div class="css-product-head">
+			    <a class="" href="<?php echo base_url('u/' . $produk->user_id) ?>">
+			    	<img src="<?php echo get_photo($produk->user_id) ?>" class="css-product-img">
+			    </a>
+			    <div class="css-product-label">
+			    	<a class="username" href="<?php echo base_url('u/' . $produk->user_id) ?>">
+			    		<span><?php echo $produk->fullname ?></span>
+			    	</a>
+			        <div class="posttime"><span><?php echo format_indo($produk->input_date) ?></span></div>
+			    </div>
+			    <i class="icon-03" onclick="modal_options('<?php echo $produk->product_id ?>')"></i>
 			</div>
+			<!-- Head EOF -->
+
+			<!-- Content -->
 			<b style="font-size: 14px;margin-top:10px"><?php echo $produk->product_name ?></b>
-			<p class="readmore"><?php echo xxs_filter($produk->product_desc) ?>
+			<p class="readmore"><?php echo xxs_filter($produk->description) ?>
 			</p>
-			<span class="tt-img"><img src="<?php echo getProductPhoto($produk->product_id) ?>" alt="" width="100%"></span>
-			<div class="row border-top py-1">
+			<span class="tt-img">
+				<a href="<?php echo base_url('p/product/' . $produk->product_id . '-' . replace_url_char($produk->product_name)) ?>">
+					<img src="<?php echo getProductPhoto($produk->product_id) ?>" alt="" width="100%">
+				</a>
+			</span>	
+			<!-- Content EOF -->
+
+			<!-- Footer -->
+			<div class="css-product-footer">
+			    <div class="css-product-footer-left">
+			        <button class="css-diskusi" title="Diskusi"> <span><?php echo $produk->comment ?></span> <i class="icon-h-12"></i> Diskusi</button>
+			        <button class="css-viewed" title="Viewed"> <span><?php echo $produk->viewed ?></span><i class="icon-h-13"></i> Viewer</button>
+			    </div>
+			    <button class="css-share" onclick="modal_bagikan('<?php echo base_url('p/product/' . $produk->product_id . '-' . replace_url_char($produk->product_name)) ?>')"><i class="icon-h-30"></i><span>Share</span></button>
+			</div>
+			<!-- Footer EOF -->
+			<!-- <div class="row border-top py-1">
 
 									<?php if ($produk->input_by != user_id() ) { ?>
 										<div class="col-4 text-center">
@@ -61,7 +78,7 @@
 											</a>
 										</div>
 									<?php } ?>
-								</div>
+								</div> -->
 		
 		</article>
 </div>

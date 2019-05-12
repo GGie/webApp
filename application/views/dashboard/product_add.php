@@ -15,7 +15,7 @@ body {
 
 /* Profile container */
 .profile {
-  margin: 20px 0;
+  margin: 70px 0;
 }
 
 /* Profile sidebar */
@@ -184,12 +184,12 @@ body {
     <p class="help-block">Minimal Size 300px x 300px</p>
   </div>
 
-  <div class="form-group">
-    <label for="music">Upload Audio/Music</label>
-    <input type="file" class="form-control-file custom-file-input" id="music" maxlength="70" name="music[]" placeholder="Upload Music" autocomplete="off" accept='audio/*'>
-    <div class="col-lg-12" style="font-size: 8px">
+    <div class="form-group">
+      <label for="music">Upload Audio/Music</label>
+      <input type="file" class="form-control-file custom-file-input" id="music" maxlength="70" name="music[]" placeholder="Upload Music" autocomplete="off" accept='audio/*'>
+      <div class="col-lg-12" style="font-size: 8px">
+      </div>
     </div>
-  </div>
 
   <div class="form-group">
     <label for="url_video">Url Embed Youtube</label>

@@ -25,11 +25,7 @@ class Comments_model extends CI_Model {
 		$this->db->join('users as b', 'b.user_id = a.input_by');
 		$query = $this->db->get();
 
-		if( $query->row() ) {
-			return $query->result();
-		} else{
-			return false;
-		}
+		return $query;
 	}
 
 	//$paramId == Product_id

@@ -13,17 +13,13 @@ class Messages_model extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function getByGroupId($param, $limit = 20, $page = 1)
+	public function getByGroupId($param, $limit, $page)
 	{
-		$this->db->select('a.*');
-		$this->db->from('(SELECT * FROM messages ORDER BY input_date desc LIMIT 15) as a');
-		$this->db->where('a.group_id', $param);
-		
-		$this->db->limit($limit, $page);
-
-		$this->db->order_by('a.input_date', 'ASC');
-		
-		return $this->db->get();
+		$offset      = ($page - 1) * $limit;
+		$this->db->select('*, (SELECT fullname FROM users WHERE user_id = messages.from) as name_from, (SELECT fullname FROM users WHERE user_id = messages.to) as name_to');
+		$this->db->where('group_id', $param);
+		$this->db->order_by('id', 'desc');
+		return $this->db->get('messages', $limit, $offset);
 	}
 
 	public function getMessageIndex($pages = false, $search, $limit = 20, $page = 1)
@@ -84,29 +80,5 @@ class Messages_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->row()->total;
 	}
-
-	// public function get_chat($param, $timestamp)
-	// {
-	// 	$a = $param;
-	// 	$b = user_id();
-
-	// 	if (substr($a, 1) > substr($b, 1)) {
-	// 		$group_id =  $b . $a;
-	// 	} else {
-	// 		$group_id = $a . $b;
-	// 	}
-
-	// 	$this->db->select('a.*');
-	// 	$this->db->from('(SELECT * FROM messages ORDER BY input_date desc LIMIT 15) as a');
-	// 	$this->db->where('a.group_id', $group_id);
-	// 	$this->db->where('timestamp >', $timestamp);
-	// 	// $this->db->limit(15);
-	// 	$this->db->order_by('a.timestamp', 'ASC');
-		
-	// 	return $this->db->get();
-	// }
-
-
-	
 
 }
