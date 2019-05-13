@@ -35,7 +35,7 @@ class Cart extends MX_Controller {
 
 	
 	//$param == product_id
-	public function cart($param = "")
+	public function cartBACKUP($param = "")
 	{
 		$qty = $this->input->post('qty');
 
@@ -122,6 +122,56 @@ class Cart extends MX_Controller {
 		}
 	}
 
+	//$param == product_id
+	public function order($param = "")
+	{
+		if($param == null)
+			exit("parameter not found");
+
+		$product = $this->CartModel->getOrderCartProductId($param);
+
+		if($product == null) {
+			$this->db->insert('order_cart',array(
+				'user_id'		=> user_id(),
+				'product_id'	=> $param,
+				'quantity'		=> 1,
+				'input_by'		=> user_id(),
+				'input_date'	=> date('Y-m-d H:i:s')
+			));
+		}
+		else {
+			$this->db->where('product_id', $param);
+			$this->db->update('order_cart',array(
+				'quantity'		=> $product->quantity + 1,
+				'update_by'		=> user_id(),
+				'update_date'	=> date('Y-m-d H:i:s')
+			));
+		}
+
+		redirect(base_url('cart/cart'));
+		
+	}
+
+	//$param == product_id
+	public function cart()
+	{
+		$data['product_cart'] = $this->CartModel->getOrderCart();
+
+		$title['title'] = "Keranjang Pesanan";
+		$title['link'] = base_url();
+
+		if (is_mobile()) {
+			parent :: header_modif($title) ;
+			$this->load->view('cart/cart_mobile', $data);
+		} else {
+			
+			//$this->load->view('cart/cart', $data);
+		}
+
+		
+		
+		parent :: footer_blank() ;
+	}
 	//order_status == 1
 	public function sku($id = null)
 	{
@@ -151,9 +201,8 @@ class Cart extends MX_Controller {
 		// }
 		$data["alamat"] 	= $this->AlamatModel->getAlamatByUserId(user_id());
 
-		$title['title'] = "Dashboard";
-		$title['buttonBack'] = "Dashboard";
-		$title['link'] = base_url('p/product/' . $id);
+		$title['title'] = "Shipment";
+		$title['link'] = base_url('cart/cart/');
 
 		if (is_mobile()) {
 				parent :: header_modif($title) ;

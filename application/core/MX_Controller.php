@@ -12,9 +12,9 @@ class MX_Controller extends CI_Controller {
 
 	public function header_modif($param = ""){
 
-		if ($this->uri->segment(1) == "cart"){
-			return $this->load->view('web/header_cart', $param);
-		} else {
+		// if ($this->uri->segment(1) == "cart"){
+		// 	return $this->load->view('web/header_cart', $param);
+		// } else {
 			// $this->load->model('kategory_model', 'kategoryModel');
 			// $this->load->model('Cart_model', 'CartModel');
 			// $this->load->model('User_model', 'UserModel');
@@ -26,7 +26,7 @@ class MX_Controller extends CI_Controller {
 			// $param['messages'] 	= $this->MessagesModel->getMessage(user_id());
 
 			return $this->load->view('web/header_modif', $param);
-		}
+		//}
 
 	}
 

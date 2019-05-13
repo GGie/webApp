@@ -15956,6 +15956,52 @@ html.edge .tt-portfolio-content figure:hover figcaption {
   .tt-input-counter.style-01 .plus-btn:before {
     content: "\e9b1"; }
 
+    /* input-counter */
+.tt-input-counter.style-02 {
+  position: relative;
+  max-width: 132px;
+}
+  .tt-input-counter.style-02 input {
+    background: #f7f8fa;
+    display: block;
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    line-height: 1em;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    color: #191919;
+    border-radius: 6px; }
+  .tt-input-counter.style-02 span {
+    display: inline-block;
+    font-size: 27px;
+    line-height: 1em;
+    cursor: pointer;
+    position: absolute;
+    width: 49px;
+    height: 100%;
+    text-align: center;
+    top: 0;
+    color: #777777; }
+  .tt-input-counter.style-02 span:hover {
+    color: #191919; }
+  .tt-input-counter.style-02 span.minus-btn {
+    left: 0px; }
+  .tt-input-counter.style-02 span.plus-btn {
+    right: 0px; }
+  .tt-input-counter.style-02 .minus-btn:before,
+  .tt-input-counter.style-02 .plus-btn:before {
+    display: block;
+    font-family: "wokiee";
+    font-size: 12px;
+    line-height: 50px; }
+  .tt-input-counter.style-02 .minus-btn:before {
+    content: "\e9b2"; }
+  .tt-input-counter.style-02 .plus-btn:before {
+    content: "\e9b1"; }
+
 /* tt-collapse-block */
 .tt-collapse-block .tt-item .tt-collapse-title {
   font-size: 14px;

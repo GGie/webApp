@@ -306,6 +306,95 @@ img {
     font-style: italic;
 }
 /* akun profile EOF */
+
+.css-nav-modal-header {
+    height: 52px;
+    position: relative;
+}
+.css-modal-header {
+    position: relative;
+    z-index: 40;
+}
+.css-description {
+    width: 100%;
+    height: 52px;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: white;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
+    transition: background-color 0.24s ease 0s;
+    cursor: pointer;
+}
+.css-back {
+    width: 52px;
+    height: 100%;
+    display: flex;
+    position: relative;
+    padding: 6px;
+}
+
+.css-textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 21px;
+    color: rgba(0, 0, 0, 0.54);
+    background-color: white;
+    text-align: justify;
+    resize: none;
+    width: 100%;
+    height: calc(100vh - 55px);
+    padding: 16px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+}
+.css-over {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px -1px 7px 0px;
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 20;
+    padding: 8px 16px;
+}
+
+.css-title {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.38;
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin: 13px 0px 8px;
+    overflow: hidden;
+}
+.css-2rhlht {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    margin: 0px 0px 8px;
+}
+.css-1lrkg2s {
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.13;
+    letter-spacing: normal;
+    color: #2879fe;
+    margin: 0px;
+    border-bottom: 1px solid #eee;
+}
 </style>
 
 <nav class="css-tjm0gv-unf-navbar-container">
@@ -326,7 +415,7 @@ img {
             <form action="<?php echo site_url('p/search') ?>" method="get" class="unf-navbar__title css-1a7d65i">
 	            <div>
 	                <div class="css-1q4sco0-unf-searchbar">
-	                    <input name="search" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
+	                    <input name="search" id="tt-search-input" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
 	                </div>
 	            </div>
         	</form>
@@ -440,9 +529,159 @@ img {
 <script src="<?php echo base_url() ?>/assets/js/simplePagination.js"></script>
 
 
+<!-- modalSearch -->
+<div class="modal h-100 w-100 p-0" id="modalDocx">
+<div class="modal-dialog modal-dialog-centered h-100 w-100 m-0">
+<div class="modal-content h-100 w-100">
+   <nav class="css-nav-modal-header">
+      <div class="css-modal-header">
+         <div class="css-description">
+<!--             <div class="css-back" data-dismiss="modal">
+              <div class="header-content row float-left">
+            <div class="col-xs-2 col-md-2 col-lg-2 float-left">
+              <span class="icon-e-30"></span>
+            </div>
+             
+          </div>
+            </div>
+              <div class="header-content row">
+                <div class="float-right">
+                  <span id="title"> SEARCH</span>
+                </div>
+            </div> -->
+            <nav class="css-tjm0gv-unf-navbar-container">
+                <div class="css-1epzir5">
+                    <div class="unf-navbar css-olgprp">
+                        <!-- <button class="css-zpcvgg" role="button" aria-label="navbar-menu"></button> -->
+                        <div class="tt-mobile-parent-menus">
+                            <div data-dismiss="modal">
+                                <span class="css-1vy75ml">
+                                    <i class="icon-e-30" style="font-size: 18px;color: #fff!important"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <span class="css-1vy75ml">
+                            <img src="<?php echo base_url('favicon.ico') ?>" width="28px">
+                        </span>
+                        <form action="<?php echo site_url('p/search') ?>" method="get" class="unf-navbar__title css-1a7d65i">
+                            <div>
+                                <div class="css-1q4sco0-unf-searchbar">
+                                    <input name="search" id="tt-search-input" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
+                                </div>
+                            </div>
+                        </form>
 
+                    </div>
+                </div>
+            </nav>
+         </div>
+      </div>
+   </nav>
+    <div class="css-textarea p-0" id="css-textarea">
+<style type="text/css">
+span .hd {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    color: #000;
+}
+ul.list {
+    height: auto;
+    overflow: hidden;
+}
+.hots ul.list li.item.hot {
+    padding-left: 32px;
+}
+ul.list li.item, .viewport.search .hots ul.list li.item {
+    float: left;
+    height: 30px;
+    margin: 10px 10px 0 0;
+    padding: 0 15px;
+    box-sizing: border-box;
+    background: #f6f6f6;
+    border-radius: 17px;
+    overflow: hidden;
+    max-width: 100%;
+    display: inline-block;
+    position: relative;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.hots ul.list li.item.hot:before {
+    content: '';
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIzMnB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI+PGcgZmlsbD0iIzE1N0VGQiIgaWQ9Imljb24tMTExLXNlYXJjaCI+PHBhdGggZD0iTTE5LjQyNzExNjQsMjEuNDI3MTE2NCBDMTguMDM3MjQ5NSwyMi40MTc0ODAzIDE2LjMzNjY1MjIsMjMgMTQuNSwyMyBDOS44MDU1NzkzOSwyMyA2LDE5LjE5NDQyMDYgNiwxNC41IEM2LDkuODA1NTc5MzkgOS44MDU1NzkzOSw2IDE0LjUsNiBDMTkuMTk0NDIwNiw2IDIzLDkuODA1NTc5MzkgMjMsMTQuNSBDMjMsMTYuMzM2NjUyMiAyMi40MTc0ODAzLDE4LjAzNzI0OTUgMjEuNDI3MTE2NCwxOS40MjcxMTY0IEwyNy4wMTE5MTc2LDI1LjAxMTkxNzYgQzI3LjU2MjExODYsMjUuNTYyMTE4NiAyNy41NTc1MzEzLDI2LjQ0MjQ2ODcgMjcuMDExNzE4NSwyNi45ODgyODE1IEwyNi45ODgyODE1LDI3LjAxMTcxODUgQzI2LjQ0Mzg2NDgsMjcuNTU2MTM1MiAyNS41NTc2MjA0LDI3LjU1NzYyMDQgMjUuMDExOTE3NiwyNy4wMTE5MTc2IEwxOS40MjcxMTY0LDIxLjQyNzExNjQgTDE5LjQyNzExNjQsMjEuNDI3MTE2NCBaIE0xNC41LDIxIEMxOC4wODk4NTExLDIxIDIxLDE4LjA4OTg1MTEgMjEsMTQuNSBDMjEsMTAuOTEwMTQ4OSAxOC4wODk4NTExLDggMTQuNSw4IEMxMC45MTAxNDg5LDggOCwxMC45MTAxNDg5IDgsMTQuNSBDOCwxOC4wODk4NTExIDEwLjkxMDE0ODksMjEgMTQuNSwyMSBMMTQuNSwyMSBaIiBpZD0ic2VhcmNoIi8+PC9nPjwvZz48L3N2Zz4=) no-repeat;
+    background-size: 100%;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    left: 16px;
+}
+.hots ul.list li.item.hot a {
+    color: #2879fe;
+}
+ul.list li.item a, .viewport.search .hots ul.list li.item a {
+    color: #333;
+    font-size: 12px;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 30px;
+    line-height: 30px;
+}
+</style>
+<!-- label -->
+<div class="hots show">
+    <span class="hd">Pencarian Terbanyak</h3>
+    <ul class="list">
+        <li class="item hot" data-keywords="promo laptop  2-May13" data-redirecturl="https://www.jd.id/campaign/hp-joy-2-exclusive-3162.html?s_param=hot_keywords_m&amp;utm_source=jdid&amp;utm_medium=sitesearchhotkeywords_m&amp;utm_content=search_hotkeywords&amp;utm_campaign=promolaptop"><a>promo laptop  2-May13</a></li>
+        <li class="item hot" data-keywords="mouse wireless" data-redirecturl=""><a>mouse wireless</a></li>
+        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
+        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
+        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
+        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
+    </ul>
+
+    <table class="table tt-table-01 ml-3">
+      <tbody>
+        <tr>
+          <td class="text-dark"><div class="text-info">Xiaomi 4A</div></td>
+        </tr>
+        <tr>
+          <td class="text-dark">Xiaomi 4A</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<!-- label EOF-->
+    </div>
+</div>
+</div>
+</div>
+<!-- modalSearch EOF -->
 
 <script type="text/javascript">
+$(document).ready(function() {
+  $('#tt-search-input').click(function() {
+    $("#modalDocx").modal();
+  });
+});
+
 function delete_modal_notif(paramId){
         $.confirm({
             title: '<?php echo $this->lang->line('delete'); ?>!',

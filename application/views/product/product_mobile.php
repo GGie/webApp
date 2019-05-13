@@ -862,7 +862,7 @@ audio{
             <!-- <a href="<?php echo base_url('cart/p/' . $product->product_id) ?>" class="btn btn-border">
                 <button class="btn" type="button"><span>Piz</span></button>
             </a> -->
-            <a href="<?php echo base_url('cart/sku/' . $product->product_id) ?>" class="btn">
+            <a href="<?php echo base_url('cart/order/' . $product->product_id) ?>" class="btn">
                 <span>PIZ</span>
             </a>
         </div>

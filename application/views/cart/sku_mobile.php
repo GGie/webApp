@@ -175,6 +175,7 @@ body {
 /* RINGKASAN BELANJA EOF */
 </style>
 
+<div style="margin-bottom: 55px"></div>
 <!-- PRODUCT -->
  <div class="css-product">
     <div class="css-product-box">
@@ -183,7 +184,7 @@ body {
         </div>
         <div class="css-b691yt">
             <div class="name"><?php echo $product->product_name ?></div>
-            <div class="stock">Comment ( <?php echo $product->comment ?> )</div>
+            <div class="stock">Diskusi ( <?php echo $product->comment ?> )</div>
             <div class="price">Rp. <?php echo @number_format(@$product->price,0,',','.'); ?></div>
             <div class="css-8aa4fn"></div><span class="css-1gh2ab9" role="presentation"><i class="icon-font icon-font-more-vertical"></i></span></div>
     </div>
@@ -207,7 +208,7 @@ body {
             </div>
             <div class="row u-mt2">
             	<div class="col col-6">
-            		<a href="<?php //echo base_url('cart/sku/' . $product->product_id) ?>" class="btn btn-border btn-small">
+            		<a href="<?php echo base_url('dashboard/location/edit?id=' . $alamat->alamat_id) ?>" class="btn btn-border btn-small">
 		                <span>Ganti Alamat</span>
 		            </a>
             	</div>

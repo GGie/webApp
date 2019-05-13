@@ -2,6 +2,32 @@
 
 class Cart_model extends CI_Model {
 
+
+	//$param == user_id
+	public function getOrderCart()
+	{
+		$this->db->select('a.*, b.product_name, b.comment, b.price, b.quantity as qty_order');
+		$this->db->from('order_cart as a');
+		$this->db->join('product as b', 'b.product_id = a.product_id');
+		$this->db->where('b.quantity >= ', 1);
+		$this->db->where('a.user_id', user_id());
+		$this->db->order_by('a.input_date', 'DESC');
+		
+		return $this->db->get();
+	}
+
+	//$param == product_id
+	public function getOrderCartProductId($param)
+	{
+		$this->db->select('a.*');
+		$this->db->from('order_cart as a');
+		$this->db->where('a.product_id', $param);
+		
+		return $this->db->get()->row();
+	}
+	// NEW EOF
+
+
 	public function getSKU($param)
 	{
 		$this->db->select('a.*');
