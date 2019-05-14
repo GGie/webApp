@@ -567,11 +567,10 @@ img {
                         <form action="<?php echo site_url('p/search') ?>" method="get" class="unf-navbar__title css-1a7d65i">
                             <div>
                                 <div class="css-1q4sco0-unf-searchbar">
-                                    <input name="search" id="tt-search-input" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
+                                    <input name="search" id="tt-search-input-modal" class="unf-searchbar__input" type="text" placeholder="Cari aja yang kamu mau" margin="0" value="<?php echo @$this->input->get('search') ?>">
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </nav>
@@ -580,15 +579,17 @@ img {
    </nav>
     <div class="css-textarea p-0" id="css-textarea">
 <style type="text/css">
-span .hd {
+span.hd {
     display: block;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
+    /* font-size: 1.17em; */
+    /* margin-block-start: 1em; */
+    /* margin-block-end: 1em; */
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-    color: #000;
+    /* color: #000; */
+    background-color: #eee;
+    padding: 4px;
 }
 ul.list {
     height: auto;
@@ -644,29 +645,27 @@ ul.list li.item a, .viewport.search .hots ul.list li.item a {
     height: 30px;
     line-height: 30px;
 }
+.text-ellipsis {
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80vw;
+    overflow: hidden;
+}
 </style>
 <!-- label -->
 <div class="hots show">
-    <span class="hd">Pencarian Terbanyak</h3>
-    <ul class="list">
-        <li class="item hot" data-keywords="promo laptop  2-May13" data-redirecturl="https://www.jd.id/campaign/hp-joy-2-exclusive-3162.html?s_param=hot_keywords_m&amp;utm_source=jdid&amp;utm_medium=sitesearchhotkeywords_m&amp;utm_content=search_hotkeywords&amp;utm_campaign=promolaptop"><a>promo laptop  2-May13</a></li>
-        <li class="item hot" data-keywords="mouse wireless" data-redirecturl=""><a>mouse wireless</a></li>
-        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
-        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
-        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
-        <li class="item hot" data-keywords="xiaomi redmi s2" data-redirecturl=""><a>xiaomi redmi s2</a></li>
-    </ul>
-
     <table class="table tt-table-01 ml-3">
-      <tbody>
-        <tr>
-          <td class="text-dark"><div class="text-info">Xiaomi 4A</div></td>
-        </tr>
-        <tr>
-          <td class="text-dark">Xiaomi 4A</td>
-        </tr>
+      <tbody id="listSuggest" width="80%">
       </tbody>
     </table>
+    <span class="hd">Pencarian Terbanyak</span>
+    <ul class="list">
+        <?php foreach($keyword as $sug) { ?>
+           <li class="item hot" ><a><?php echo $sug->keyword ?></a></li>
+        <?php } ?>
+    </ul>
 </div>
 <!-- label EOF-->
     </div>
@@ -679,9 +678,24 @@ ul.list li.item a, .viewport.search .hots ul.list li.item a {
 $(document).ready(function() {
   $('#tt-search-input').click(function() {
     $("#modalDocx").modal();
+    $("#tt-search-input-modal").focus();
   });
 });
 
+$("#tt-search-input-modal").keyup(function(){
+    $.ajax({ 
+        url: "<?php echo base_url('ajax/keyword'); ?>",
+        data: { q: $("#tt-search-input-modal").val()},
+        dataType: "json",
+        type: "POST",
+        success: function(data){
+            $("#listSuggest").empty();
+            $.each(data, function(index) {
+                     $("#listSuggest").append("<tr><td><div class='text-ellipsis'><a href='../p/search.php?search=" + data[index].product_name + "'>" + data[index].product_name + "</a></div></td></tr>");
+                });
+        }    
+    });
+});
 function delete_modal_notif(paramId){
         $.confirm({
             title: '<?php echo $this->lang->line('delete'); ?>!',

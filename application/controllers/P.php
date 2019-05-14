@@ -89,6 +89,11 @@ class P extends MX_Controller {
 		$param['min'] = $this->input->get('min');
 		$param['max'] = $this->input->get('max');
 
+		$this->load->model('search_model', 'SearchModel');
+
+		if(isset($param['search']))
+			$this->SearchModel->insert($param['search']);
+
     	if ($this->input->get('search')){
 
     			$this->load->library('pagination');
@@ -130,6 +135,7 @@ class P extends MX_Controller {
     			parent :: header($title) ;
 
     			$this->load->view('product/product_search', $param);
+
 
     			parent :: footer() ;
     	}

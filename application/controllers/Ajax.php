@@ -10,7 +10,7 @@ class Ajax extends CI_Controller {
 		
 		//redirect jika belum login
 		if (!$this->input->is_ajax_request()) {
-            exit('No direct script access allowed');
+            //exit('No direct script access allowed');
         }
 		
 	}
@@ -63,6 +63,87 @@ class Ajax extends CI_Controller {
 
 				// parent :: footer() ;
 		
+	}
+
+	public function keyword()
+	{		
+		$param = $this->input->post("q");
+
+		$getData = $this->db->query("SELECT product_name FROM product WHERE product_name LIKE '%" . $param . "%' LIMIT 5")->result();
+
+				header('Content-Type: application/json');
+					
+					
+				$json_pretty = json_encode($getData, JSON_PRETTY_PRINT);
+				echo $json_pretty;
+
+	}
+
+	public function vendor()
+	{		
+		// $params = array(
+		// 		'merchantCode' => $merchantCode,
+		// 		'merchantOrderId' => $merchantOrderId,
+		// 		// 'reference' => $reference,
+		// 		'signature' => $signature
+		// 	);
+
+			// $params_string = json_encode($params);
+			$url = 'http://paket.id/apis/v2/vendor?auth-user-email=anggietriejast@gmail.com&auth-api-key=6cxu57FTnANcspsUfFcCJ6g72nkzUvyj';
+			$ch = curl_init();
+
+			curl_setopt($ch, CURLOPT_URL, $url); 
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                                     
+			// curl_setopt($ch, CURLOPT_POSTFIELDS, $params_string);                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				'Content-Type: application/json')                                                                       
+			);   
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+			//execute post
+			$request = curl_exec($ch);
+			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+			if($httpCode == 200)
+			{
+				header('Content-Type: application/json');
+					
+					$result = json_decode($request, true);
+					
+					$json_pretty = json_encode($request, JSON_PRETTY_PRINT);
+					echo $request;
+			}
+			else
+				echo $httpCode . " - " . $request;
+
+	}
+
+	public function ongkir()
+	{		
+		$this->load->library('rajaongkir');
+		
+
+		//$origin, $destination, $weight, $courier
+		$ongkos = $this->rajaongkir->waybill('520050001022618', "jne");
+		//$ongkos = $this->rajaongkir->cost($origin, $destination, $weight, $courier);
+		$queries = json_decode($ongkos);
+
+		var_dump($queries);
+
+		if ($queries != null) {
+				echo "<table class='tt-table-02'>";
+
+		        // foreach($queries->rajaongkir->results as $results ){ 
+
+		        //  }
+
+		        // echo "</table>";
+
+    	} else {
+    		echo "NOT CONNECTED...";
+    	}
+
 	}
 
 

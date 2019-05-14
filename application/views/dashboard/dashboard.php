@@ -6,12 +6,13 @@
 }
 .css-xo9ljf{
     display: block;
-    padding: 16px;
+    padding: 0px 16px 16px 16px;
 }
 .css-1tumtwp-unf-card {
     display: block;
     position: relative;
     background-color: rgb(255, 255, 255);
+    background-image: url(https://cdn2.slidemodel.com/wp-content/uploads/7243-01-low-poly-background-16x9-1.jpg);
     box-shadow: rgba(49, 53, 59, 0.12) 0px 1px 6px 0px;
     padding: 16px;
     margin: 36px;
@@ -53,13 +54,7 @@
 .css-gvoll6 {
     display: flex;
 }
-.css-1dvicdl {
-    display: flex;
-    margin-right: 16px;
-    padding-right: 16px;
-    flex: 1 1 0%;
-    border-right: 1px solid rgb(224, 224, 224);
-}
+
 .css-xvbwhb {
     width: 24px;
     height: 24px;
@@ -102,7 +97,7 @@
     box-shadow: rgba(49, 53, 59, 0.12) 0px 1px 6px 0px;
     background-image: url(https://images.all-free-download.com/images/graphicthumb/transparent_bubbles_with_background_vector_541557.jpg);
     background-size: cover;
-    margin: 16px 0px;
+    margin: 0px 0px -20px 0px;
     padding: 16px;
     overflow: hidden;
     background-position: center top;
@@ -210,7 +205,7 @@
 <div style="margin-top: 60px"></div>
 <div class="unf-card css-1q0b0je-unf-card">
     <div class="css-xs3fld">
-        <div role="presentation" class="css-1kukc4r">
+        <div class="css-1kukc4r">
             <img class="css-1mf51g1" src="<?php echo get_photo(user_id()) ?>" alt="profile">
             <div class="css-1c2mwzn">
                 <div class="css-2wqymv"><?php echo ucwords($user->fullname) ?></div><span class="css-1igmekv">Personal Account</span></div>
@@ -221,18 +216,22 @@
 <div class="css-xo9ljf">
 <div class="unf-card css-1tumtwp-unf-card">
     <div class="css-gvoll6">
-        <div role="presentation" class="css-1dvicdl">
+        
+        <div class="css-1dvicdl" onclick="location.href='<?php echo base_url() ?>';">
+
             <i class="icon-e-54 css-xvbwhb" style="font-size: 24px"></i>
             <div>
                 <div class="css-dbnc6v">DompetGoo</div>
                 <div class="css-oh1q65"><?php echo number_rp($user->saldo) ?></div></div>
         </div>
-        <div role="presentation" class="css-1dvicdl">
+      
+        <div class="css-1dvicdl" onclick="location.href='<?php echo base_url() ?>';">
             <i class="icon-f-56 css-xvbwhb" style="font-size: 24px"></i>
             <div>
                 <div class="css-dbnc6v">Kartu Promo</div>
                 <div class="css-oh1q65">0 Kartu</div></div>
         </div>
+
     </div>
 </div>
 </div>

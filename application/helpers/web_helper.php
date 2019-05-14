@@ -395,7 +395,7 @@ function get_photo($userId) {
 
   $photo = base_url('assets/images/custom/profile.png');
 
-  if (isset($query->row()->avatar) AND $query->row()->avatar != "")
+  if (file_exists($query->row()->avatar) AND $query->row()->avatar != "")
     $photo = base_url($query->row()->avatar);
 
   return $photo;
@@ -427,7 +427,7 @@ function getProductPhoto( $paramId ) {
 
   $photo = base_url('assets/images/custom/noimage.png');
 
-  if (isset($query->row()->image_url))
+  if (isset($query->row()->image_url) && file_exists($query->row()->image_url))
     $photo = base_url($query->row()->image_url);
 
   return $photo;
