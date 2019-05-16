@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/goopizco/sandbox/frontend/
+    - /bin/cp -R . $DEPLOYPATH
