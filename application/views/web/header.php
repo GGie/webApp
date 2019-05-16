@@ -509,7 +509,6 @@ img {
 				</li>
 			</ul>
 		</li>
-        
         <li>
             <a href="<?php echo site_url('auth/logout') ?>">
                 <i class="icon-f-74"></i>
