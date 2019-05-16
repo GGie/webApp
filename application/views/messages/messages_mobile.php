@@ -293,7 +293,7 @@ $(window).load(function() {
   $("html, body").animate({ scrollTop: $(document).height() }, 1000);
   $("#msg").focus();
 });
-var socket = io('https://protected-cliffs-60470.herokuapp.com/');
+var socket = io('https://socket-zahraweb.herokuapp.com/');
 </script>
 
 </script>
@@ -345,6 +345,7 @@ var app = new Vue({
 
     this.getmessage(false);
     socket.on('chat_webapp', data => {
+      console.log(data);
       if(data.data.to == this.userfrom && data.data.group_id == this.id)
       {
         this.listmessage.push({

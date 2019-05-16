@@ -58,7 +58,7 @@ margin-left: -40px;
   background-color: #f1f5fc;
 }
 
-.friend-list li a .friend-name, 
+.friend-list li a .friend-name,
 .friend-list li a .friend-name:hover {
   color: #777;
   text-overflow: ellipsis!important;
@@ -101,7 +101,7 @@ small, .small {
 }
 
 .chat-message{
-    background: #f9f9f9;  
+    background: #f9f9f9;
 }
 
 .chat li img {
@@ -211,64 +211,80 @@ a:hover, a:active, a:focus {
   text-decoration: none;
   outline: 0;
 }
-</style>
-<div class="container bootstrap snippet">
-    <div class="row">
-		<div class="col-md-12 bg-white p-0">
-            
-            <!-- =============================================================== -->
-            <!-- member list -->
-            <ul class="friend-list">
-                <li class="active bounceInDown">
-                	<a href="#" class="clearfix">
-                		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-                		<div class="friend-name">	
-                			<b>John Doe John Doe John Doe John Doe John Doe John Doe</b>
-                		</div>
-                		<div class="last-message text-muted">Hello, Are you there?</div>
-                		<small class="time text-muted">Just now</small>
-                		<small class="chat-alert label label-danger">1</small>
-                	</a>
-                </li>
 
-                <?php if ($chats->num_rows() > 0) { ?>
-                <?php foreach($chats->result() as $chat) { ?>
-                <?php
-                    if ($chat->from == user_id()) {
-                        $displayName = $chat->to;
-                    } else {
-                        $displayName = $chat->from;
-                    }
-                ?>
-                <li>
-                	<a href="<?php echo base_url('messages/d/' . $chat->group_id) ?>" class="clearfix">
-                		<img src="<?php echo get_photo($displayName) ?>" alt="" class="img-circle">
-                		<div class="friend-name">	
-                			<b><?php echo is_username($displayName) ?></b>
-                		</div>
-                		<div class="last-message text-muted"><?php echo $chat->message ?></div>
-                		<small class="time text-muted"><?php echo format_indo_time($chat->input_date) ?></small>
-                	<!-- <small class="chat-alert text-muted"><i class="fa fa-reply"></i></small> -->
-                	</a>
-                </li>
-                <?php } ?>
-                <div class="tt-shopcart-btn">
-                  <div class="col-left">
-                      <?php echo $this->pagination->create_links(); ?>
-                  </div>
-                </div>
-                <?php } else { ?>
-                <div class="tt-chat-box" style="margin-top: 2px; padding: 6px!important">
-                    <div class="container-indent nomargin">
-                        <div class="tt-empty-search">
-                            <span class="tt-icon icon-e-40"></span><br>
-                            <b>Belum Ada Pesan</b>
-                        </div>
+div#message_mobile {
+    padding-top: 10px;
+}
+</style>
+<div class="container bootstrap snippet" id="message_mobile">
+    <div class="row">
+    <div class="col-md-4 bg-white p-0">
+            <ul class="friend-list">
+                <li class="active bounceInDown" v-for="item in listdata">
+                  <a :href="item.link" class="clearfix">
+                    <img :src="item.img" alt="" class="img-circle">
+                    <div class="friend-name">
+                      <b>{{item.fullname}}</b>
                     </div>
-                </div>
-                <?php } ?>
-                             
+                    <div class="last-message text-muted">{{item.msg}}</div>
+                    <small class="time text-muted">{{item.input_date}}</small>
+                    <small v-if="item.noread > 0" class="chat-alert label label-danger">{{item.noread}}</small>
+                  </a>
+                </li>
             </ul>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+<script type="text/javascript">
+var socket = io('https://socket-zahraweb.herokuapp.com/');
+</script>
+
+<script type="text/javascript">
+var app = new Vue({
+  mixins: [Vue2Filters.mixin],
+  el: '#message_mobile',
+  data: {
+    listdata : [],
+    baseUrl: '<?php echo base_url(); ?>',
+    userid: '',
+    tmpfilter : {
+      limit : 20,
+      page : 1,
+    }
+  },
+  created(){
+    this.getmessage();
+
+    socket.on('chat_webapp', data => {
+        console.log(data.data.to);
+        console.log(this.userid);
+        if(data.data.to == this.userid)
+        {
+          this.getmessage();
+        }
+    });
+  },
+  methods: {
+    getmessage() {
+      axios.get(this.baseUrl + 'messages/get_message_index', {
+        params : this.tmpfilter
+      })
+      .then(response => {
+        this.listdata = [];
+        this.userid = response.data[0].from;
+        response.data.forEach(element => {
+          
+          this.listdata.push(Object.assign(element, {link: "<?php echo base_url('messages/d/') ?>"+element.group_id+""   }));
+        })
+      })
+    },
+  },
+})
+
+</script>

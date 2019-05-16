@@ -16,6 +16,7 @@ class Messages extends MX_Controller
 
     public function d($param = "")
     {
+
         $user1 = substr($param, 0, 7);
         $user2 = substr($param, 7, 13);
 
@@ -37,6 +38,9 @@ class Messages extends MX_Controller
         } else {
             $group_id = $a . $b;
         }
+
+        $this->MessagesModel->update_flag_read($param);
+
         $header['title'] = is_username($var_to);
         $header['link']  = base_url('messages');
         parent::header_modif($header);
@@ -165,49 +169,22 @@ class Messages extends MX_Controller
     }
     public function index()
     {
-        $param['search'] = $this->input->get('search') ? $this->input->get('search') : "0";
-                $this->load->library('pagination');
-                            // $config["base_url"] = base_url() . "/home/";
-                // $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
-                $config['full_tag_open'] = '<div class="tt-pagination"><div class="pagination"><ul>';
-                $config['full_tag_close'] = '</ul></div></div>';
-                $config['num_tag_open'] = '<li class="">';
-                $config['num_tag_close'] = '</li>';
-                $config['cur_tag_open'] = '<a class="active"><li>';
-                $config['cur_tag_close'] = '</li></a>';
-                $config['prev_tag_open'] = '<li class="">';
-                $config['prev_tag_close'] = '<li>';
-                $config['next_tag_open'] = '<li class="">';
-                $config['next_tag_close'] = '</li>';
-                $config['num_tag_open'] = '<li class="">';
-                $config['num_tag_close'] = '</li>';
-                $config['first_link'] = '<li class="">FIRST</li>';
-                $config['first_tag_open'] = '<li class="">';
-                $config['first_tag_close'] = '</li>';
-                $config['last_link'] = '<li class="">LAST</li>';
-                $config['last_tag_open'] = '<li class="">';
-                $config['last_tag_close'] = '</li>';
-                $config['page_query_string'] = TRUE;
-                $config['use_page_numbers'] = FALSE;
-                //$config['suffix'] = '?&search='.$data['search'] ;
-                $config['base_url'] = base_url().'messages?search=' . $param['search'];
-
-                $offset = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-                $config['uri_segment'] = 3;
-                $config["total_rows"] = $this->MessagesModel->getMessageIndex(false, $param['search'])->num_rows();
-                $config['per_page'] = 5; 
-                $this->pagination->initialize($config); 
-
-                $param["total_rows"] = $config["total_rows"];
-                $param['chats'] = $this->MessagesModel->getMessageIndex(true, $param['search'], $config["per_page"], $offset);
-                
-
         parent::header();
-        // $this->load->view('messages/messages_index');
-
-
-        $this->load->view('messages/messages_mobile_index', $param);
+        $this->load->view('messages/messages_mobile_index');
         parent::footer_blank();
+    }
+	
+	public function get_message_index(){
+        header('Content-Type: application/json');
+        $page  = $this->input->get('page', true);
+        $limit = $this->input->get('limit', true);
+        $data = $this->MessagesModel->getMessageIndex($limit, $page, user_id());
+        foreach($data as $value)
+		{
+			$result[] = array('group_id' => $value->group_id, 'to' => $value->to, 'id' => $value->id, 'input_date' => $value->input_date, 'fullname' => $value->fullname, 'msg' => $value->msg, 'noread' => $value->noread, 'img' => get_photo($value->to), 'from' => $value->vform, 'user_id' => user_id());
+		}
+		
+        echo json_encode($result);
     }
 
     public function get_more_messages()

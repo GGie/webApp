@@ -22,22 +22,24 @@ class Messages_model extends CI_Model {
 		return $this->db->get('messages', $limit, $offset);
 	}
 
-	public function getMessageIndex($pages = false, $search, $limit = 20, $page = 1)
+	public function getMessageIndex($limit, $page, $user_id)
 	{
-		if ( $search)
-		$this->db->like('message', $search);
-
-		$this->db->like('group_id', user_id());
-
-		$this->db->select('a.*');
+		$this->db->select('a.group_id, 
+			a.to,
+			max(a.id) as id, 
+			max(a.to) as vto, 
+			max(a.from) as vform, 
+			max(users.fullname) as fullname, 
+			(SELECT b.message FROM messages as b WHERE b.group_id = a.group_id ORDER BY b.id DESC LIMIT 1 ) as msg,
+			(SELECT b.input_date FROM messages as b WHERE b.group_id = a.group_id ORDER BY b.id DESC LIMIT 1 ) as input_date,
+			(SELECT COUNT(c.message) FROM messages as c WHERE c.group_id = a.group_id  AND c.is_read = "0") as noread 
+		');
 		$this->db->from('messages as a');
-		$this->db->where('`timestamp` IN', '(SELECT MAX(`timestamp`) FROM messages WHERE group_id LIKE "%' . user_id() . '%" GROUP BY group_id)', false);
-		$this->db->order_by('input_date', 'DESC');
-		
-		if ( $pages )
-		$this->db->limit($limit, $page);
-	
-		return $this->db->get();
+		$this->db->join('users', 'users.user_id = a.to', 'left');
+		$this->db->where("a.group_id like '%".$user_id."%' AND a.from = '".$user_id."' ");
+		$this->db->group_by('a.group_id');
+		$this->db->group_by('a.to');
+		return $this->db->get()->result();
 	}
 
 	public function get_chat($param, $total, $timestamp = "")
@@ -79,6 +81,11 @@ class Messages_model extends CI_Model {
 		
 		$query = $this->db->get();
 		return $query->row()->total;
+	}
+	
+	public function update_flag_read($group_id)
+	{
+		$this->db->query("UPDATE messages SET is_read = '1' WHERE group_id = '".$group_id."' ");
 	}
 
 }
