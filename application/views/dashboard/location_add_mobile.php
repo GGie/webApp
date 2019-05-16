@@ -229,8 +229,7 @@
 						<div class="col-md-9 col-sm-9">
 				            <div class="profile-content">
 							         <!-- FORM -->
-
-
+                       
 <form method="post" action="<?php echo base_url('dashboard/location/save') ?>" enctype="multipart/form-data">
     <div class="material-textfield normal form-control mt-4">
       <input type="text" id="alamat_name" name="alamat_name" value="" placeholder="Alamat Rumah/Alamat Kontrakan" autocomplete="off" required="true" maxlength="30">
