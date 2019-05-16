@@ -245,6 +245,16 @@
     </div>
   </div>
 <ul class="css-dashboard-list">
+    
+    <li>
+        <a href="<?php echo site_url('dashboard/buy') ?>" class="css-dashboard-list-item">
+            <div style="padding-left: 0px;" class="css-dashboard-container">
+                <div class="css-dashboard-text css-dashboard-text--two-lines">Product Beli</div>
+                <div class="css-dashboard-description">Semua Product yang anda beli</div>
+            </div>
+            <i class="icon-g-03"></i>
+        </a>
+    </li>
     <li>
         <a href="<?php echo site_url('dashboard/sell') ?>" class="css-dashboard-list-item">
             <div style="padding-left: 0px;" class="css-dashboard-container">
@@ -255,19 +265,28 @@
         </a>
     </li>
     <li>
-        <a href="javascript:void(0)" class="css-dashboard-list-item">
+        <a href="<?php echo site_url('dashboard/stock') ?>" class="css-dashboard-list-item">
             <div style="padding-left: 0px;" class="css-dashboard-container">
-                <div class="css-dashboard-text css-dashboard-text--two-lines">Product</div>
-                <div class="css-dashboard-description">Semua Product yang anda jual</div>
+                <div class="css-dashboard-text css-dashboard-text--two-lines">Product Stock</div>
+                <div class="css-dashboard-description">Semua Product yang tidak dijual</div>
             </div>
             <i class="icon-g-03"></i>
         </a>
     </li>
     <li>
-        <a href="javascript:void(0)" class="css-dashboard-list-item">
+        <a href="<?php echo site_url('dashboard/rekening_list') ?>" class="css-dashboard-list-item">
             <div style="padding-left: 0px;" class="css-dashboard-container">
-                <div class="css-dashboard-text css-dashboard-text--two-lines">Product</div>
-                <div class="css-dashboard-description">Semua Product yang anda jual</div>
+                <div class="css-dashboard-text css-dashboard-text--two-lines">Rekening</div>
+                <div class="css-dashboard-description">Set nomor rekening agar memudahkan pencairan uang</div>
+            </div>
+            <i class="icon-g-03"></i>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo site_url('dashboard/location_list') ?>" class="css-dashboard-list-item">
+            <div style="padding-left: 0px;" class="css-dashboard-container">
+                <div class="css-dashboard-text css-dashboard-text--two-lines">Alamat Lokasi</div>
+                <div class="css-dashboard-description">Pastikan Alamat Anda Benar</div>
             </div>
             <i class="icon-g-03"></i>
         </a>

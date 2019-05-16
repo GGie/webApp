@@ -1,12 +1,10 @@
   <div class="container-indent">
     <div class="container">
 
-<?php $this->load->view("dashboard/dashboard_tabs"); ?>
-
 <?php if ( $DataAlamat->num_rows() >= 1 ) { ?> 
           <blockquote class="tt-blockquote" style="margin-top: 12px">
           <span><a href="<?php echo base_url('dashboard/location/add') ?>" class="btn btn-lg" style="margin: 10px;width: 180px"><i class="icon-f-24"> </i>Tambahkan Lokasi</a></span>
-        <span class="">Pastikan Alamat Anda Benar, agar bisa menjual dan membeli barang aja apa di Goopiz</span>
+        <span class="">Pastikan Alamat Anda Benar, agar bisa menjual dan membeli barang apa aja di Goopiz</span>
         </blockquote>
       <div class="row">
 <!--       <div class="col-lg-12 tt-label-our-fatured" style="border-radius: 3px;">
@@ -28,7 +26,7 @@
                       <div style="font-weight: bold"><?php echo xxs_filter($alamat->alamat_name) ?></div>
                       <div style="padding-bottom: 10px;font-weight: bold"><?php echo xxs_filter($alamat->penerima) ?></div>
                       <div style="padding-bottom: 10px"><?php echo xxs_filter($alamat->alamat_detail) ?>
-                        <?php echo xxs_filter($alamat->province) . ", " . xxs_filter($alamat->city_name)?>
+                        <?php echo xxs_filter($alamat->province) . ", " . xxs_filter($alamat->city) ?>
                         <?php echo xxs_filter($alamat->kode_pos) ?> - 
                         <?php echo xxs_filter($alamat->no_hp) ?>
                       </div>
@@ -62,7 +60,7 @@
                   
                   <td style="width: auto !important;text-align: center">
                     <?php if ($alamat->type == 1){ ?>
-                      <span class="tt-label-new"> Alamat Utama </span>
+                      <span class="tt-label-new" style="padding:4px;border-radius: 4px"> Alamat Utama </span>
                     <?php } ?>
                   </td>
                   <td>

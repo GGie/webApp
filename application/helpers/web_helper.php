@@ -309,15 +309,15 @@ function is_username($paramId)
    }
 }
 
-function is_cityName($paramId)
+function is_subdistrict($paramId)
 {
   $init =& get_instance();
   
   //$paramId == user_id
   //1 == alamat utama
-  $init->db->select('CONCAT(province, ", ", city_name, ", ", postal_code) as alamat');
-  $init->db->where('city_id', $paramId);
-  $query = $init->db->get('city');
+  $init->db->select('CONCAT(province, ", ", city, ", ", subdistrict_name) as alamat');
+  $init->db->where('subdistrict_id', $paramId);
+  $query = $init->db->get('subdistrict');
 
    if(isset($query->row()->alamat)){
       return $query->row()->alamat;

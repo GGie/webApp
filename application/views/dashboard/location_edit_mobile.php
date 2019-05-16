@@ -220,7 +220,9 @@
 			<div class="row">
 				
 				<div class="col-md-12 col-sm-12">
-
+                  <blockquote class="tt-blockquote" style="margin-top: 12px;background: linear-gradient(to right bottom, #2879fe, rgb(143, 230, 236) 88%);color: #fff">
+                    <span class="">Pastikan Alamat Anda Sesuai</span>
+                  </blockquote>
 					<div class="row profile">
 						<div class="col-md-9 col-sm-9">
 				            <div class="profile-content">
@@ -250,7 +252,7 @@
 
     <div class="material-textfield normal form-control mt-4">
           <select id="pro_kec" name="pro_kec" class="form-control" value="<?php echo $data->pro_kec; ?>" style="width: 100%;" >
-      <option value="<?php echo $data->pro_kec ?>"><?php echo is_cityName($data->pro_kec) ?></option>
+      <option value="<?php echo $data->pro_kec ?>"><?php echo is_subdistrict($data->pro_kec) ?></option>
 
     </select>
       <label data-content="Provinsi dan Kota"></label>

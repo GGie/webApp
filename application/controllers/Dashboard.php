@@ -326,12 +326,12 @@ class Dashboard extends MX_Controller {
 			    $param['DataAlamat'] = $this->AlamatModel->alamatByInput(true, $this->input->get('search'), $config["per_page"], $offset);
     			
 
-    			// parent :: header() ;
+    			parent :: header() ;
 
-    			$this->view_dashboard('dashboard/location_list', $param);
+    			$this->load->view('dashboard/location_list', $param);
 				//$this->load->view('dashboard/product_list', $param);
 
-				// parent :: footer() ;
+				parent :: footer() ;
 		
 	}
 

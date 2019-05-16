@@ -4,10 +4,10 @@ class Alamat_model extends CI_Model {
 
 	public function alamatByInput($pages = false, $search, $limit = 20, $page = 1)
 	{
-		$this->db->select('a.*, c.province, c.city_name');
+		$this->db->select('a.*, c.province, c.city');
 		$this->db->from('alamat as a');
 		$this->db->join('users as b', 'b.user_id = a.input_by');
-		$this->db->join('city as c', 'c.city_id = a.pro_kec');
+		$this->db->join('subdistrict as c', 'c.subdistrict_id = a.pro_kec');
 		$this->db->where('a.input_by', user_id());
 		$this->db->order_by('a.type', 'DESC');
 		
