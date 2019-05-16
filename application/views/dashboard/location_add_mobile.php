@@ -2,7 +2,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/minimalect.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/upload.css" />
-    
 <script src="<?php echo base_url() ?>/assets/js/minimalect.js?c=201305202005"></script>
 <style type="text/css">
 .wrapper {
@@ -229,7 +228,7 @@
 						<div class="col-md-9 col-sm-9">
 				            <div class="profile-content">
 							         <!-- FORM -->
-                       
+
 <form method="post" action="<?php echo base_url('dashboard/location/save') ?>" enctype="multipart/form-data">
     <div class="material-textfield normal form-control mt-4">
       <input type="text" id="alamat_name" name="alamat_name" value="" placeholder="Alamat Rumah/Alamat Kontrakan" autocomplete="off" required="true" maxlength="30">
