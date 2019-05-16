@@ -491,7 +491,7 @@ input[type="radio" i] {
 </div>
 
 <!-- modalKurir -->
-<div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalKurir">
+<div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalKurir" style="overflow-y: -webkit-paged-x;!important">
 <div class="modal-dialog modal-dialog-centered h-100 w-100 m-0">
 <div class="modal-content h-100 w-100">
    <nav class="css-nav-modal-header">
@@ -519,6 +519,36 @@ input[type="radio" i] {
 </div>
 </div>
 <!-- modalKurir EOF -->
+
+<!-- modalAlamat -->
+<div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalAlamat" style="overflow-y: -webkit-paged-x;!important">
+<div class="modal-dialog modal-dialog-centered h-100 w-100 m-0">
+<div class="modal-content h-100 w-100">
+   <nav class="css-nav-modal-header">
+      <div class="css-modal-header">
+         <div class="css-description close" data-dismiss="modal" aria-hidden="false">
+            <div class="css-back">
+              <div class="header-content row float-left">
+            <div class="col-xs-2 col-md-2 col-lg-2 float-left">
+              <span class="icon-e-30"></span>
+            </div>
+             
+          </div>
+            </div>
+              <div class="header-content row">
+                <div class="float-right">
+                  <span id="title"> Pilih Kurir</span>
+                </div>
+            </div>
+         </div>
+      </div>
+   </nav>
+    <div class="css-kurir" id="css-kurir">
+    </div>
+</div>
+</div>
+</div>
+<!-- modalAlamat EOF -->
 
 <script type="text/javascript">
 function selectKurir(){

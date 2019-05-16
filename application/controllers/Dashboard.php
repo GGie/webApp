@@ -337,6 +337,10 @@ class Dashboard extends MX_Controller {
 
 	public function location($param = "")
 	{
+		$title['title'] = "Dashboard";
+		parent :: header($title);
+
+
 		$user_id = $this->session->userdata('user_id');
 		$id = $this->input->post('id');
 
@@ -370,7 +374,8 @@ class Dashboard extends MX_Controller {
 			$access = $this->AlamatModel->getInputBy($id);
 			if ($access != "" AND $access->input_by == user_id()){
 				$data['data'] = $access;
-				$this->view_dashboard('dashboard/location_edit', $data);
+				$this->load->view('dashboard/location_edit_mobile', $data);
+				parent :: footer_blank();
 			}
 		} elseif ( $param == 'update'){
 			$id = $this->input->post('alamat_id');
@@ -396,7 +401,8 @@ class Dashboard extends MX_Controller {
 
 			redirect($ref);
 		} elseif ( $param == 'add'){
-			$this->view_dashboard('dashboard/location_add');
+			$this->load->view('dashboard/location_add_mobile');
+				parent :: footer_blank();
 		} elseif ( $param == 'set'){ // set lokasi sebagai utama
 			
 			if ($id){
@@ -1256,10 +1262,11 @@ class Dashboard extends MX_Controller {
 	{
 		$q = $this->input->get('q');
 
-		$this->db->select('city_id as id, CONCAT(province, ", ", city_name, ", ", postal_code) as text');
+		$this->db->select('subdistrict_id as id, CONCAT(province, ", ", city, ", ", subdistrict_name) as text');
         $this->db->like('province', $q, 'both');
-        $this->db->or_like('city_name', $q, 'both');
-        $query = $this->db->get('city');
+        $this->db->or_like('city', $q, 'both');
+        $this->db->or_like('subdistrict_name', $q, 'both');
+        $query = $this->db->get('subdistrict');
         echo json_encode($query->result());
 	}
 
