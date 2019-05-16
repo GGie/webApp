@@ -65,86 +65,73 @@ class Ajax extends CI_Controller {
 		
 	}
 
-	public function keyword()
-	{		
-		$param = $this->input->post("q");
+	public function kurir(){
+		$this->load->model('kurir_model', 'KurirModel');
+		$dataKurir = "";
 
-		$getData = $this->db->query("SELECT product_name FROM product WHERE product_name LIKE '%" . $param . "%' LIMIT 5")->result();
-
-				header('Content-Type: application/json');
-					
-					
-				$json_pretty = json_encode($getData, JSON_PRETTY_PRINT);
-				echo $json_pretty;
-
+		$kurirAktif = $this->db->where('status', 1)->get('courier');
+		foreach ($kurirAktif->result() as $kurir) {
+			$dataKurir .= $this->KurirModel->ongkir($kurir->courier);
+		}
+		echo $dataKurir;
 	}
+	// public function keyword()
+	// {		
+	// 	$param = $this->input->post("q");
 
-	public function vendor()
-	{		
-		// $params = array(
-		// 		'merchantCode' => $merchantCode,
-		// 		'merchantOrderId' => $merchantOrderId,
-		// 		// 'reference' => $reference,
-		// 		'signature' => $signature
-		// 	);
+	// 	$getData = $this->db->query("SELECT product_name FROM product WHERE product_name LIKE '%" . $param . "%' LIMIT 5")->result();
 
-			// $params_string = json_encode($params);
-			$url = 'http://paket.id/apis/v2/vendor?auth-user-email=anggietriejast@gmail.com&auth-api-key=6cxu57FTnANcspsUfFcCJ6g72nkzUvyj';
-			$ch = curl_init();
-
-			curl_setopt($ch, CURLOPT_URL, $url); 
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");                                                                     
-			// curl_setopt($ch, CURLOPT_POSTFIELDS, $params_string);                                                                  
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-				'Content-Type: application/json')                                                                       
-			);   
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-
-			//execute post
-			$request = curl_exec($ch);
-			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-			if($httpCode == 200)
-			{
-				header('Content-Type: application/json');
+	// 			header('Content-Type: application/json');
 					
-					$result = json_decode($request, true);
 					
-					$json_pretty = json_encode($request, JSON_PRETTY_PRINT);
-					echo $request;
-			}
-			else
-				echo $httpCode . " - " . $request;
+	// 			$json_pretty = json_encode($getData, JSON_PRETTY_PRINT);
+	// 			echo $json_pretty;
 
-	}
+	// }
 
-	public function ongkir()
-	{		
-		$this->load->library('rajaongkir');
+	
+
+	// public function ongkir($param)
+	// {		
+	// 	$this->load->library('rajaongkir');
 		
 
-		//$origin, $destination, $weight, $courier
-		$ongkos = $this->rajaongkir->waybill('520050001022618', "jne");
-		//$ongkos = $this->rajaongkir->cost($origin, $destination, $weight, $courier);
-		$queries = json_decode($ongkos);
+	// 	//$origin, $destination, $weight, $courier
+	// 	$ongkos = $this->rajaongkir->subdistrict($param);
+	// 	//$ongkos = $this->rajaongkir->cost($origin, $destination, $weight, $courier);
+	// 	$queries = json_decode($ongkos);
 
-		var_dump($queries);
+	// 	var_dump($queries);
 
-		if ($queries != null) {
-				echo "<table class='tt-table-02'>";
+	// 	if ($queries != null) {
+	// 	        foreach($queries->rajaongkir->results as $results ){ 
+	// 	        	$this->db->insert('subdistrict',array(
+	// 				'subdistrict_id'	=> $results->subdistrict_id,
+	// 				'province_id'		=> $results->province_id,
+	// 				'province'			=> $results->province,
+	// 				'city_id'			=> $results->city_id,
+	// 				'city'				=> $results->city,
+	// 				'type'				=> $results->type,
+	// 				'subdistrict_name'	=> $results->subdistrict_name,
+	// 			));
+	// 	         }
 
-		        // foreach($queries->rajaongkir->results as $results ){ 
+ //    	} else {
+ //    		echo "NOT CONNECTED...";
+ //    	}
 
-		        //  }
+	// }
 
-		        // echo "</table>";
+	// public function kecamatan()
+	// {
+	// 	$query = $this->db->get('city');
 
-    	} else {
-    		echo "NOT CONNECTED...";
-    	}
-
-	}
+	// 	foreach ($query->result() as $value) {
+	// 		//echo $value->city_id;
+	// 		$this->ongkir($value->city_id);
+	// 	}
+		
+	// }
 
 
 }

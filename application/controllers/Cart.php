@@ -176,7 +176,15 @@ class Cart extends MX_Controller {
 	public function sku($id = null)
 	{
 		$this->load->model('alamat_model', 'AlamatModel');
-		$this->load->library('rajaongkir');
+		//$this->load->library('rajaongkir');
+
+		// $kurirAktif = $this->db->where('status', 1)->get('courier');
+
+		// $dataKurir = "";
+		// foreach ($kurirAktif->result() as $kurir) {
+		// 	$dataKurir .= $this->KurirModel->ongkir($kurir->courier);
+		// }
+		// $data['kurir'] = $dataKurir;
 
 		$data['product'] = $this->ProductModel->getProductId($id);
 

@@ -81,10 +81,10 @@
 <?php } else { ?>
 <div id="tt-pageContent">
 	<div class="container-indent nomargin">
-		<div class="tt-empty-cart">
-			<span class="tt-icon icon-f-39"></span>
-			<h1 class="tt-title" style="color:grey">Tidak ada hasil untuk di tampilkan</h1>
-			<p>You have no items in your shopping cart.</p>
+		<div class="tt-empty-search">
+			<!-- <span class="tt-icon icon-f-85"></span> -->
+			<img src="<?php echo base_url('assets/images/icon/icon-search.png') ?>" width="300px">
+			<div style="font-family: arial">Tidak ada hasil untuk di tampilkan</div>
 			<a href="<?php echo base_url() ?>" class="btn"><?php echo strtoupper($this->lang->line('back')) ?></a>
 		</div>
 	</div>

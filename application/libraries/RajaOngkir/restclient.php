@@ -17,6 +17,7 @@ class RESTClient {
         $this->endpoint = $endpoint;
         $this->account_type = $account_type;
         $this->api_url = "https://rajaongkir.com/api/";
+        $this->pro_api_url = "https://pro.rajaongkir.com/api/";
     }
 
     /**
@@ -31,7 +32,12 @@ class RESTClient {
         $header[] = "key: $this->api_key";
         $query = http_build_query($params);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+
+        if ( $this->account_type != "pro")
         curl_setopt($curl, CURLOPT_URL, $this->api_url . "" . $this->account_type . "/" . $this->endpoint);
+        else
+        curl_setopt($curl, CURLOPT_URL, $this->pro_api_url . "/" . $this->endpoint);
+
         curl_setopt($curl, CURLOPT_POST, TRUE);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $query);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -53,7 +59,12 @@ class RESTClient {
         $header[] = "key: $this->api_key";
         $query = http_build_query($params);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+
+        if ( $this->account_type != "pro")
         curl_setopt($curl, CURLOPT_URL, $this->api_url . "" . $this->account_type . "/" . $this->endpoint . "?" . $query);
+        else
+        curl_setopt($curl, CURLOPT_URL, $this->pro_api_url . $this->endpoint . "?" . $query);
+
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         $request = curl_exec($curl);

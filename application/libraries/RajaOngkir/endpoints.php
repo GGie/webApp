@@ -48,7 +48,7 @@ class Endpoints {
      * @param integer $city_id ID kota untuk mendapatkan nama kecamatan berdasarkan kote
      * @return string Response dari cURL, berupa string JSON balasan dari RajaOngkir
      */
-    function subdistrict($city_id, $subdistrict_id = NULL) {
+    function subdistrict($city_id = NULL, $subdistrict_id = NULL) {
         $params = (is_null($city_id)) ? array() : array('city' => $city_id);
         if (!is_null($subdistrict_id)) {
             $params['id'] = $subdistrict_id;
@@ -60,17 +60,21 @@ class Endpoints {
     /**
      * Fungsi untuk mendapatkan data ongkos kirim
      * @param integer $origin ID kota asal
+     * @param integer $originType 'city or subdistrict'
      * @param integer $destination ID kota tujuan
+     * @param integer $destinationType 'city or subdistrict'
      * @param integer $weight Berat kiriman dalam gram
      * @param string $courier Kode kurir
      * @return string Response dari cURL, berupa string JSON balasan dari RajaOngkir
      */
-    function cost($origin, $destination, $weight, $courier) {
+    function cost($origin, $originType, $destination, $destinationType, $weight, $courier) {
         $params = array(
-            'origin' => $origin,
-            'destination' => $destination,
-            'weight' => $weight,
-            'courier' => $courier
+            'origin'            => $origin,
+            'originType'        => $originType,
+            'destination'       => $destination,
+            'destinationType'   => $destinationType,
+            'weight'            => $weight,
+            'courier'           => $courier
         );
         $rest_client = new RESTClient($this->api_key, 'cost', $this->account_type);
         return $rest_client->post($params);

@@ -112,8 +112,7 @@
 									<div class="tt-empty-search">
 										<!-- <span class="tt-icon icon-f-85"></span> -->
 										<img src="<?php echo base_url('assets/images/icon/icon-search.png') ?>" width="300px">
-										<h1 class="tt-title">Tidak ditemukan apapun</h1>
-										<p>Hasil pencarian untuk <span class="tt-base-dark-color"><i><b><?php echo xxs_filter($this->input->get('search')) ?></b></i></span> tidak ditemukan. Coba keyword lain?</p>
+										<div style="font-family: arial">Tidak ditemukan apapun</div>
 									</div>
 								</div>
 							</div>
