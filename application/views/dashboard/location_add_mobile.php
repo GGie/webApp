@@ -287,6 +287,10 @@
 
 
 <script>
+  function notify() {
+        $.notify("Testing");
+  }
+
 $(document).ready(function(){
     $(".example1").minimalect({ theme: "bubble", placeholder: "Select Kategori...", name : "",
         onfilter :function(param){

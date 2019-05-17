@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/theme.css">
 	<link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/main.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/minimalect.css" />
-   	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/upload.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/upload.css" />
    	<!-- <link rel="manifest" href="manifest.json"> -->
 
 <meta name="mobile-web-app-capable" content="yes">
@@ -532,6 +532,7 @@ img {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="<?php echo base_url() ?>/assets/js/simplePagination.js"></script>
+<script src="<?php echo base_url() ?>/assets/js/dist/jsalert.min.js"></script>
 
 
 <!-- modalSearch -->

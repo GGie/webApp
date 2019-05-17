@@ -65,6 +65,11 @@ class Ajax extends CI_Controller {
 		
 	}
 
+	public function bahasa(){
+		$this->load->helper('google_translate_helper');
+		google_translate("Ini bahasa indonesia menjadi","en");
+	}
+
 	public function kurir(){
 		$this->load->model('kurir_model', 'KurirModel');
 		$dataKurir = "";
@@ -74,6 +79,15 @@ class Ajax extends CI_Controller {
 			$dataKurir .= $this->KurirModel->ongkir($kurir->courier);
 		}
 		echo $dataKurir;
+	}
+
+	public function alamat(){
+		$this->load->model('alamat_model', 'AlamatModel');
+		$dataAlamat = "";
+
+		$dataAlamat .= $this->AlamatModel->alamat();
+	
+		echo $dataAlamat;
 	}
 	// public function keyword()
 	// {		

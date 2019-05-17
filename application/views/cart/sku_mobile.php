@@ -199,17 +199,17 @@ body {
         <div class="css-19midj6">
             <div class="row">
                 <div class="col col-12">
-                    <div class="css-oq7xsu" data-cy="checkoutTotalHarga"><?php echo $alamat->penerima ?></div>
+                    <div class="css-oq7xsu"><?php echo $alamat->penerima ?></div>
                 </div>
             </div>
             <div class="row u-mt2">
                 <div class="col col-12">
-                    <div class="css-oq7xsu" data-cy="checkoutOngkosKirim"><?php echo $alamat->alamat_detail ?></div>
+                    <div class="css-oq7xsu"><?php echo $alamat->alamat_detail ?></div>
                 </div>
             </div>
             <div class="row u-mt2">
             	<div class="col col-6">
-            		<a href="<?php echo base_url('dashboard/location/edit?id=' . $alamat->alamat_id) ?>" class="btn btn-border btn-small">
+            		<a href="javascript:void(0)" class="btn btn-border btn-small" id="btn-alamat">
 		                <span>Ganti Alamat</span>
 		            </a>
             	</div>
@@ -537,13 +537,13 @@ input[type="radio" i] {
             </div>
               <div class="header-content row">
                 <div class="float-right">
-                  <span id="title"> Pilih Kurir</span>
+                  <span id="title"> Ganti Tujuan Pengiriman</span>
                 </div>
             </div>
          </div>
       </div>
    </nav>
-    <div class="css-kurir" id="css-kurir">
+    <div class="css-kurir" id="css-alamat">
     </div>
 </div>
 </div>
@@ -553,6 +553,10 @@ input[type="radio" i] {
 <script type="text/javascript">
 function selectKurir(){
     $("#modalKurir").modal('hide');
+}
+function selectAlamat(id){
+    alert(id);
+    //$("#modalKurir").modal('hide');
 }
 $('#btn-kurir').click(function(){
     var content = $("#css-kurir").text();
@@ -572,5 +576,25 @@ $('#btn-kurir').click(function(){
     }
 
   $("#modalKurir").modal('show');
+});
+
+$('#btn-alamat').click(function(){
+    var content = $("#css-alamat").text();
+    if (content.length <= 10) {
+        var load_img = $('<img/>').attr('src','http://localhost:8080/dev/frontend/assets/images/loader.svg').addClass('loading-image').css({"position": "fixed", "top": "0px", "width": "100%"}); //create load image
+        $("#modalAlamat").append(load_img);
+        var id = "";
+        $.ajax({
+            url: "<?php echo base_url('ajax/alamat') ?>",
+            data: {id:id},
+            success:
+            function(data){
+                $("#css-alamat").html(data);
+                load_img.remove();
+            }
+        });
+    }
+
+    $("#modalAlamat").modal('show');
 });
 </script>

@@ -26,10 +26,10 @@
                
                
                <div class="unf-navbar__title css-1a7d65i e18vcn5y6">
-                  <a href="<?php echo base_url() ?>"><h1 class="css-1b81x7z e18vcn5y7"><i class="fa fa-arrow-left" style="width: 35px;text-align: right;padding-right: 6px"> </i>Kembali</h1></a>
+                  <a href="<?php echo base_url() ?>"><h1 class="css-1b81x7z e18vcn5y7"><i class="fa fa-arrow-left" style="width: 35px;text-align: right;padding-right: 6px"> </i><?php echo $this->lang->line('login'); ?></h1></a>
                </div>
-               <style data-emotion-css="1ay9vb9">.css-1ay9vb9{margin-right:16px;}</style>
-               <a class="css-1ay9vb9 css-1b81x7z e18vcn5y7" href="<?php echo base_url('auth/login') ?>"><?php echo $this->lang->line('login'); ?></a>
+               <!-- <style data-emotion-css="1ay9vb9">.css-1ay9vb9{margin-right:16px;}</style>
+               <a class="css-1ay9vb9 css-1b81x7z e18vcn5y7" href="<?php echo base_url('auth/login') ?>"><?php echo $this->lang->line('login'); ?></a> -->
             </div>
          </div>
          <style data-emotion-css="hmmmg1">.css-hmmmg1{height:52px;}</style>
@@ -59,20 +59,13 @@
    </div>
 </div>
   
-  <link rel="stylesheet" rel="stylesheet" media="screen" href="<?php echo base_url() ?>assets/css/amaran.min.css">
   <script src="<?php echo base_url() ?>/assets/js/jquery-2.1.4.min.js"></script>
-  <script src="<?php echo base_url() ?>/assets/js/jquery-ui.min.js"></script>
-  <script src="<?php echo base_url('assets/js/jquery.amaran.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/js/dist/jsalert.min.js') ?>"></script>
+
 <?php if ($this->session->flashdata('message')) { ?>
-  <script type="text/javascript">
-$(function(){
-      $.amaran({
-                'message'           :"<?php echo $this->session->flashdata('message') ?>",
-                'position'          :'top right',
-                'clearAll'          : true
-            });
-}); 
-  </script>
+<script type="text/javascript">
+  JSAlert.alert("<?php echo $this->session->flashdata('message') ?>");
+</script>
 <?php } ?>
   </body>
 </html>

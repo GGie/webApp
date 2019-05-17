@@ -64,6 +64,44 @@ class Alamat_model extends CI_Model {
 		return $this->db->get()->row()->input_by;
 	}
 
+	public function alamat()
+	{		
+		$this->load->library('rajaongkir');
+		
+		$return = "";
+		$query = $this->alamatByInput(false, "test");
+
+		if ($query != null) {
+
+		        foreach($query->result() as $results ){ 
+		        	        $return .= '<div>';
+		        	        	$return .= '<label class="c-input-label">';
+		        	        	$return .= '<input type="radio" class="co-input-radio" value="jnt_reg" name="kurir" onclick="selectAlamat(\'' . $results->penerima . '\')">';
+					            $return .= '<span class="co-input__inner-label o-flag">';
+					            $return .= '<div class="row">';
+						            
+						                $return .= '<div class="col col-12">';
+						                    $return .= '<div class="css-oq7xsu">' . $results->penerima . '</div>';
+						                $return .= '</div>';
+						            $return .= '</div>';
+						            $return .= '<div class="row u-mt2">';
+						                $return .= '<div class="col col-12">';
+						                    $return .= '<div class="css-oq7xsu">' . $results->alamat_detail . '</div>';
+						                $return .= '</div>';
+						            
+					            $return .= '</div>';
+					            $return .= '</span>';
+					            $return .= '</div>';
+					        $return .= '</div>';
+		         }
+
+
+    	} else {
+    		$return .= "Tidak ada alamat";
+    	}
+
+    	return $return;
+	}
 	
 }
 

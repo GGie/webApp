@@ -12,7 +12,7 @@ class Kurir_model extends CI_Model {
 		$this->load->library('rajaongkir');
 		
 		$return = "";
-		$ongkos = $this->rajaongkir->cost('734', 'subdistrict', '731', 'subdistrict', '1000', $kurir);
+		$ongkos = $this->rajaongkir->cost('734', 'subdistrict', '4', 'subdistrict', '1000', $kurir);
 		$queries = json_decode($ongkos);
 
 		if ($queries != null) {
