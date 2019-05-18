@@ -173,55 +173,7 @@ body {
     padding: 16px;
 }
 
-/* RINGKASAN BELANJA EOF */
-</style>
-
-<div style="margin-bottom: 55px"></div>
-<!-- PRODUCT -->
- <div class="css-product">
-    <div class="css-product-box">
-        <div class="css-1ghrxnh">
-            <img class="img" src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($product->product_id) ?>">
-        </div>
-        <div class="css-b691yt">
-            <div class="name"><?php echo $product->product_name ?></div>
-            <div class="stock">Diskusi ( <?php echo $product->comment ?> )</div>
-            <div class="price">Rp. <?php echo @number_format(@$product->price,0,',','.'); ?></div>
-            <div class="css-8aa4fn"></div><span class="css-1gh2ab9" role="presentation"><i class="icon-font icon-font-more-vertical"></i></span></div>
-    </div>
- </div> 
-<!-- PRODUCT EOF -->
-
-<!-- ALAMAT BELANJA -->
-<div class="unf-card unf-card--container css-u0qtpu-unf-card eue3g1e0">
-    <div>
-        <div class="css-1gynyxc">Tujuan Pengiriman</div>
-        <div class="css-19midj6">
-            <div class="row">
-                <div class="col col-12">
-                    <div class="css-oq7xsu"><?php echo $alamat->penerima ?></div>
-                </div>
-            </div>
-            <div class="row u-mt2">
-                <div class="col col-12">
-                    <div class="css-oq7xsu"><?php echo $alamat->alamat_detail ?></div>
-                </div>
-            </div>
-            <div class="row u-mt2">
-            	<div class="col col-6">
-            		<a href="javascript:void(0)" class="btn btn-border btn-small" id="btn-alamat">
-		                <span>Ganti Alamat</span>
-		            </a>
-            	</div>
-            	<div class="col col-6">
-            	</div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ALAMAT EOF -->
-
-<style type="text/css">
+/* KURIR */
 .c-input-label {
     width: 100%;
     font-size: 1rem;
@@ -421,24 +373,73 @@ input[type="radio" i] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+/* RINGKASAN BELANJA EOF */
+.co-field__input {
+    outline: none;
+    display: block;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e8eaef;
+    padding: 12px 16px;
+    font-size: 14px;
+    width: 100%;
+}
 </style>
+
+<div style="margin-bottom: 55px"></div>
+<!-- PRODUCT -->
+ <div class="css-product">
+    <div class="css-product-box">
+        <div class="css-1ghrxnh">
+            <img class="img" src="<?php echo base_url('assets') ?>/images/loader.svg" data-src="<?php echo getProductPhoto($product->product_id) ?>">
+        </div>
+        <div class="css-b691yt">
+            <div class="name"><?php echo $product->product_name ?></div>
+            <div class="stock">Quantity ( <?php echo $product->quantity ?> )</div>
+            <div class="price">Rp. <?php echo @number_format(@$product_price,0,',','.'); ?></div>
+            <div class="css-8aa4fn"></div><span class="css-1gh2ab9" role="presentation"><i class="icon-font icon-font-more-vertical"></i></span></div>
+    </div>
+ </div> 
+<!-- PRODUCT EOF -->
+
+<!-- ALAMAT BELANJA -->
+<div class="unf-card unf-card--container css-u0qtpu-unf-card eue3g1e0">
+    <div>
+        <div class="css-1gynyxc">Tujuan Pengiriman</div>
+        <div class="css-19midj6">
+            <div class="row">
+                <div class="col col-12">
+                    <div class="css-oq7xsu"><?php echo $alamat->penerima ?></div>
+                </div>
+            </div>
+            <div class="row u-mt2">
+                <div class="col col-12">
+                    <div class="css-oq7xsu"><?php echo $alamat->alamat_detail ?></div>
+                </div>
+            </div>
+            <div class="row u-mt2">
+            	<div class="col col-6">
+            		<a href="javascript:void(0)" class="btn btn-border btn-small" id="btn-alamat">
+		                <span>Ganti Alamat</span>
+		            </a>
+            	</div>
+            	<div class="col col-6">
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ALAMAT EOF -->
 <!-- RINGKASAN BELANJA -->
 <div class="unf-card unf-card--container css-u0qtpu-unf-card eue3g1e0" id="btn-kurir">
 
         <div class="css-1gynyxc">Kurir</div>
         <div class="css-19midj6">
             <div>
-                <label class="c-input-label">
-                    <span class="co-input__inner-label o-flag">
-                        <div class="o-flag__head">
-                            <div class="css-logo-jne"></div>
-                        </div>
-                        <div class="o-flag__body">
-                            <div>JNE EXPRESS</div> 
-                            <div class="u-fg--ash-dark"><span>Rp 18.000</span> ( 1 hari )</div>
-                        </div>
-                    </span>
+                <label class="c-input-label" id="id-kurir">
+                    <div class="o-flag__body">
+                        <div>PILIH JASA KURIR</div>
+                    </div>
                 </label>
                 <i class="css-aqsu6h"></i>
             </div>
@@ -447,9 +448,24 @@ input[type="radio" i] {
 </div>
 <!-- RINGKASAN BELANJA EOF -->
 
+<!-- COUPONS -->
+<div class="unf-card unf-card--container css-u0qtpu-unf-card eue3g1e0" id="btn-kurir">
+<div class="css-1gynyxc">Kupon</div>
+<div class="css-19midj6">
+        
+<div class="">
+    <div class="co-field__input" onclick="modal_coupons()">
+          <span class="icon-g-53"></span> Pakai Kupon Promo...
+    </div> 
+</div>
+</div>
+</div>
+<!-- COUPONS EOF -->
+
 <!-- RINGKASAN BELANJA -->
 <div class="unf-card unf-card--container css-u0qtpu-unf-card eue3g1e0">
     <div>
+
         <div class="css-1gynyxc">Ringkasan Belanja</div>
         <div class="css-19midj6">
             <div class="row">
@@ -457,7 +473,7 @@ input[type="radio" i] {
                     <div class="css-oq7xsu">Total Harga (1 Barang) </div>
                 </div>
                 <div class="col col-5 text-right">
-                    <div data-cy="checkoutTotalPrice" class="u-right css-oq7xsu css-35ezg3">Rp 35.000</div>
+                    <div class="u-right css-oq7xsu css-35ezg3">Rp <span class="subTotal"><?php echo @number_format(@$product_price,0,',','.'); ?></span></div>
                 </div>
             </div>
             <div class="row u-mt2">
@@ -465,14 +481,22 @@ input[type="radio" i] {
                     <div class="css-oq7xsu">Total Ongkos Kirim</div>
                 </div>
                 <div class="col col-5 text-right">
-                    <div data-cy="checkoutAmountPriceShipment" class="u-right css-oq7xsu css-35ezg3">Rp 10.000</div>
+                    <div class="u-right css-oq7xsu css-35ezg3">Rp <span class="totalShipping">0</span></div>
+                </div>
+            </div>
+            <div class="row u-mt2">
+                <div class="col col-7">
+                    <div class="css-oq7xsu">Total Potongan</div>
+                </div>
+                <div class="col col-5 text-right">
+                    <div class="u-right css-oq7xsu css-35ezg3">Rp <span class="totalPotongan">0</span></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- RINGKASAN BELANJA EOF -->
-
+<form>
 <div style="margin-bottom: 70px"></div>
 <div class="unf-card css-btn-overlay">
     <div class="css-gq7rz0">
@@ -480,8 +504,11 @@ input[type="radio" i] {
             <a href="<?php //echo base_url('messages/d/' . $product->input_by . user_id()) ?>">
                 <span class="css-ytsv0f">Total</span>
             </a>
-                <a href="<?php //echo base_url('diskusi/p/' . $product->product_id) ?>" class="css-rp"><span>Rp 50000</span></a>
+                <a href="<?php //echo base_url('diskusi/p/' . $product->product_id) ?>" class="css-rp">Rp <span class="Total"><?php echo @number_format(@$product_price,0,',','.'); ?></span></a>
         </div>
+        <input type="hidden" name="subTotal" class="xsubTotal" value="<?php echo $product_price ?>">
+        <input type="hidden" name="totalShipping" class="xtotalShipping" value="">
+        <input type="hidden" name="Total" class="xTotal" value="">
         <div class="pdpButtonGrid">
             <a href="<?php //echo base_url('cart/sku/' . $product->product_id) ?>" class="btn">
                 <span>Beli</span>
@@ -489,9 +516,9 @@ input[type="radio" i] {
         </div>
     </div>
 </div>
-
+</form>
 <!-- modalKurir -->
-<div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalKurir" style="overflow-y: -webkit-paged-x;!important">
+<div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalKurir" style="overflow-y: hidden">
 <div class="modal-dialog modal-dialog-centered h-100 w-100 m-0">
 <div class="modal-content h-100 w-100">
    <nav class="css-nav-modal-header">
@@ -519,7 +546,30 @@ input[type="radio" i] {
 </div>
 </div>
 <!-- modalKurir EOF -->
-
+<!-- modal coupons -->
+<div id="modal-coupons" class="overlay active" aria-hidden="true" style="display: none">
+<div class="modal-bottomsheet  animated fadeInUpSm modal-bottomsheet--active" style="transition: all 0.3s ease-out 0s;">
+    <div class="modal-bottomsheet__header">
+        <div class="modal-close-btn" onclick="modal_coupons_hidden()">
+            <img width="24px" height="24px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAG1BMVEVHcEyfp7Gfp7KfprCfp7CfprCfprGqqrifprATGtrfAAAACHRSTlMAgF3wptnYEpfVhR4AAACYSURBVDjL3ZO9EQIhEEbBCgwJDa3AuQ7O3MRCbAB1br6yvZmDBYHXABvtD2+B5cO5iex1u5Tg9FjNvyuWQtDX/EU6Z99LHys8VZAgbVa4ypAd0NtVeEaCqrZVWC35RxrAEi1gmQ5IqR5IyAA4kAFwICMgIXEwew8AF6gVbk7HxQvSSHCINHZ8KHpaFAPKBwWHEkVR4zeYwH5fLGpn9kSs2QAAAABJRU5ErkJggg==">
+        </div>
+            <div class="header-title">
+                <strong>Pakai Kupon Promo...</strong>
+            </div>
+    </div>
+    <form>
+    <div class="social-media-list">
+        <div class="social-media-item">
+            <input type="" name="" placeholder="Pakai Kupon Promo..." class="co-field__input">
+        </div>
+        <div class="social-media-item mt-2">
+            <input type="submit" name="gunakan" value="Gunakan" class="btn btn-block">
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+<!-- modal bagikan EOF -->
 <!-- modalAlamat -->
 <div class="modal animated fadeInUpSm h-100 w-100 p-0" id="modalAlamat" style="overflow-y: -webkit-paged-x;!important">
 <div class="modal-dialog modal-dialog-centered h-100 w-100 m-0">
@@ -551,12 +601,35 @@ input[type="radio" i] {
 <!-- modalAlamat EOF -->
 
 <script type="text/javascript">
-function selectKurir(){
+    function modal_coupons(id) {
+        $("#modal-fb"). attr("href", "//www.facebook.com/sharer/sharer.php?u=" +id);
+        $("#modal-wa"). attr("href", "https://api.whatsapp.com/send?phone=&text=Kunjungi product => " +id); 
+        $("#modal-tw"). attr("href", "//twitter.com/intent/tweet/?text=Kunjungi dan beli product&amp;url=" +id);
+        $("#modal-coupons").show();
+    }
+
+    function modal_coupons_hidden() {
+        $("#modal-fb"). attr("href", "");
+        $("#modal-wa"). attr("href", "");
+        $("#modal-tw"). attr("href", "");
+        $("#modal-coupons").hide();
+    }
+
+function selectKurir(id){
+    $(".totalShipping").html( $('#kurirValue' + id).html() );
+    $(".xtotalShipping").val( $('#kurirValue' + id).html().replace('.', '') );
+
+
+    var ongkir = $('#kurirValue' + id).html().replace('.', '');
     $("#modalKurir").modal('hide');
+    $("#id-kurir").html($('#kurir' + id).html());
+
+    getTotal();
 }
 function selectAlamat(id){
-    alert(id);
-    //$("#modalKurir").modal('hide');
+    setTotal();
+    //alert(id);
+    //$("#modalAlamat").modal('hide');
 }
 $('#btn-kurir').click(function(){
     var content = $("#css-kurir").text();
@@ -597,4 +670,35 @@ $('#btn-alamat').click(function(){
 
     $("#modalAlamat").modal('show');
 });
+
+function getTotal(){
+
+    var totalShipping = $(".xtotalShipping").val();
+    var subTotal = $(".xsubTotal").val();
+    var Total = parseFloat(subTotal) + parseFloat(totalShipping);
+    
+    $(".xTotal").val( Total );
+    $(".Total").html( (Total/1000).toFixed(3) );
+}
+
+function setTotal(){
+    $(".xTotal").val("0");
+    $(".xtotalShipping").val("0");
+    $(".totalShipping").html("0");
+
+    $("#id-kurir").html('<div class="o-flag__body"><div>PILIH JASA KURIR</div></div>');
+
+    $(".Total").html($(".xsubTotal").val());
+}
+
+// function setHtml(id, value){
+//     setTimeout( function(){ 
+//         // $(id).html('<i>Loading...</i>');
+//         $(".Total").hidden();
+//     } , 0 );
+
+//     setTimeout( function(){ 
+//         $(".Total").show();
+//     } , 3500 );
+// }
 </script>

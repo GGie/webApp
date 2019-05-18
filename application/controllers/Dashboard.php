@@ -26,12 +26,7 @@ class Dashboard extends MX_Controller {
 			redirect(site_url('auth/login'));
 		}
 
-
-		$title['title'] = "Dashboard";
-		$title['buttonBack'] = "Dashboard";
-		$title['link'] = base_url();
-
-		parent :: header_modif($title);
+		parent :: header();
 
 		$data['user'] = $this->UserModel->getByUserId(user_id());
 
@@ -871,7 +866,16 @@ class Dashboard extends MX_Controller {
 
 		$data['data'] = $this->UserModel->getByUserId(user_id());
 		$data['last'] = $this->UserModel->last_password();
-		$this->view_dashboard('dashboard/account_setting', $data);
+
+		if (is_mobile()) {
+			parent :: header() ;
+			$this->load->view('dashboard/account_setting', $data);
+		} else {
+			// $this->load->view('dashboard/account_setting', $data);
+		}
+
+		parent :: footer_blank() ;
+		
 	}
 
 
@@ -889,8 +893,14 @@ class Dashboard extends MX_Controller {
 	       		$this->session->set_flashdata('message', 'Tidak Ada Session');
 	       		redirect(site_url('dashboard/account_setting'));
 	       	}
-
-       		$this->view_dashboard('dashboard/info_edit', $data);
+		       	if (is_mobile()) {
+					parent :: header() ;
+					$this->load->view('dashboard/info_edit', $data);
+				} else {
+					// this->view_dashboard('dashboard/info_edit', $data);
+				}
+       			
+       			parent::footer_blank();
 
        } elseif ($action == "update_info"){
 
@@ -927,8 +937,14 @@ class Dashboard extends MX_Controller {
 	       		redirect(site_url('dashboard/account_setting'));
 	       	}
 
-       		$this->view_dashboard('dashboard/kontak_edit', $data);
-
+	       	if (is_mobile()) {
+				parent :: header() ;
+				$this->load->view('dashboard/kontak_edit', $data);
+			} else {
+				//$this->load->view('dashboard/kontak_edit', $data);
+			}
+       		
+       		parent::footer_blank();
 
 
        } elseif ($action == "update_contact"){
@@ -957,8 +973,14 @@ class Dashboard extends MX_Controller {
 
        } elseif ($action == "edit_password"){
 
-       		$this->view_dashboard('dashboard/password_edit');
-
+       		if (is_mobile()) {
+				parent :: header() ;
+				$this->load->view('dashboard/password_edit');
+			} else {
+				//$this->load->view('dashboard/password_edit', $data);
+			}
+       		
+       		parent::footer_blank();
 
        } elseif ($action == "update_password"){
 

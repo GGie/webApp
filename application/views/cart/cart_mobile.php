@@ -103,7 +103,7 @@ body {
             <div class="col-item pr-1">
                 <div class="tt-input-counter style-02">
                     <span class="minus-btn"></span>
-                    <input type="text" value="<?php echo $product->qty_order ?>" size="1000"/>
+                    <input type="text" value="<?php echo $product->quantity ?>" size="1000"/>
                     <span class="plus-btn"></span>
                 </div>
             </div>

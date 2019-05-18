@@ -55,6 +55,18 @@ class Dompet_model extends CI_Model {
 		}
 	}
 
+	function getCoupon( $param = null ) {
+
+		$this->db->select('a.name, a.code, a.discount, a.date_end');
+		$this->db->where('a.status', 1);
+		$this->db->where('a.discount >', 0);
+		$this->db->where('a.date_end >=', date('Y-m-d 23:59:s'));
+		$this->db->from('product_coupon as a');
+		$query = $this->db->get();
+
+		return $query;
+	}
+
 	
 }
 

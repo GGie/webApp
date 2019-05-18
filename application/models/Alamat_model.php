@@ -74,9 +74,10 @@ class Alamat_model extends CI_Model {
 		if ($query != null) {
 
 		        foreach($query->result() as $results ){ 
+		        			$checked = ($results->type == 1) ? 'checked="checked"' : '';
 		        	        $return .= '<div>';
 		        	        	$return .= '<label class="c-input-label">';
-		        	        	$return .= '<input type="radio" class="co-input-radio" value="jnt_reg" name="kurir" onclick="selectAlamat(\'' . $results->penerima . '\')">';
+		        	        	$return .= '<input type="radio" class="co-input-radio" value="jnt_reg" name="kurir"' . $checked . 'onclick="selectAlamat(\'' . $results->penerima . '\')">';
 					            $return .= '<span class="co-input__inner-label o-flag">';
 					            $return .= '<div class="row">';
 						            

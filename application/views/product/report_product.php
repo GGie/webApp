@@ -44,22 +44,8 @@ body {
     z-index: 20;
     padding: 8px 16px;
 }
-/* product box */
 /* comment */
-.header-content {
-    padding: 12px 5px 5px 0px;
-    font-size: 18px;
-}
-.css-product {
-    display: block;
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    box-shadow: rgba(49, 53, 59, 0.12) 0px 1px 6px 0px;
-    margin: 6px;
-    padding: 12px 4px 4px;
-    border-radius: 8px;
-    overflow: hidden;
-}
+
 /* MODAL MOBILE */
 .css-nav-modal-header {
     height: 52px;
@@ -124,6 +110,20 @@ body {
 }
 
 /* Product */
+.header-content {
+    padding: 12px 5px 5px 0px;
+    font-size: 18px;
+}
+.css-product {
+    display: block;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(49, 53, 59, 0.12) 0px 1px 6px 0px;
+    margin: 6px;
+    padding: 12px 4px 4px;
+    border-radius: 8px;
+    overflow: hidden;
+}
 .css-product-box {
     position: relative;
     margin-left: 0px;

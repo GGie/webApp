@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DompetGoo extends CI_Controller {
+class DompetGoo extends MX_Controller {
 
 	public function __construct()
 	{
@@ -16,6 +16,24 @@ class DompetGoo extends CI_Controller {
 		$this->load->model('User_model', 'UsersModel');
 	}
 
+	public function coupons()
+	{
+		$title['title'] = "Kupon Promo";
+		$title['link'] = site_url('dashboard');
+		parent :: header_modif($title);
+
+		$data['coupons']	= $this->DompetModel->getCoupon();
+		$data['users']		= $this->UsersModel->getByUserId(user_id());
+
+		if (is_mobile()) {
+			$this->load->view('dompetGoo/coupons_mobile', $data);
+		} else {
+			parent :: header($title) ;
+			//Belum ada
+		}
+
+		parent::footer_blank();
+	}
 	public function detail()
 	{
 				$param['start_date'] 	= $this->input->get('start_date');
@@ -25,24 +43,24 @@ class DompetGoo extends CI_Controller {
 				$this->load->library('pagination');
     			            // $config["base_url"] = base_url() . "/home/";
     			// $config['base_url'] = base_url() . 'home/'.$this->uri->segment(2).'?search='.$data['search'];
-    			$config['full_tag_open'] = '<div class="tt-pagination"><div class="pagination"><ul>';
-				$config['full_tag_close'] = '</ul></div></div>';
-				$config['num_tag_open'] = '<li class="">';
-				$config['num_tag_close'] = '</li>';
-				$config['cur_tag_open'] = '<a class="active"><li>';
-				$config['cur_tag_close'] = '</li></a>';
-				$config['prev_tag_open'] = '<li class="">';
-				$config['prev_tag_close'] = '<li>';
-				$config['next_tag_open'] = '<li class="">';
-				$config['next_tag_close'] = '</li>';
-				$config['num_tag_open'] = '<li class="">';
-				$config['num_tag_close'] = '</li>';
-				$config['first_link'] = '<li class="">FIRST</li>';
-				$config['first_tag_open'] = '<li class="">';
-				$config['first_tag_close'] = '</li>';
-				$config['last_link'] = '<li class="">LAST</li>';
-				$config['last_tag_open'] = '<li class="">';
-				$config['last_tag_close'] = '</li>';
+			$config['full_tag_open'] = '<div class="pagination basic-pagination"><div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div></div>';
+			$config['num_tag_open'] = '<li class="z-depth-1">';
+			$config['num_tag_close'] = '</li>';
+			$config['cur_tag_open'] = '<li class="disabled"><a class="z-depth-1">';
+			$config['cur_tag_close'] = '</a></li>';
+			$config['prev_tag_open'] = '<li class="z-depth-1">';
+			$config['prev_tag_close'] = '<li>';
+			$config['next_tag_open'] = '<li class="z-depth-1">';
+			$config['next_tag_close'] = '</li>';
+			$config['num_tag_open'] = '<li class="z-depth-1">';
+			$config['num_tag_close'] = '</li>';
+			$config['first_link'] = 'FIRST';
+			$config['first_tag_open'] = '<li class="">';
+			$config['first_tag_close'] = '</li>';
+			$config['last_link'] = 'LAST';
+			$config['last_tag_open'] = '<li class="z-depth-1">';
+			$config['last_tag_close'] = '</li>';
 				$config['page_query_string'] = TRUE;
 				$config['use_page_numbers'] = FALSE;
 				//$config['suffix'] = '?&search='.$data['search'] ;
@@ -57,13 +75,21 @@ class DompetGoo extends CI_Controller {
 			    $data["total_rows"] = $config["total_rows"];
 			    $data['DataDompet'] = $this->DompetModel->getMutasi(true, $param, $config["per_page"], $offset);
 
-		$title['title'] = "Dashboard";
-		parent :: header($title);
+		$title['title'] = "DompetGoo";
+		$title['link'] = site_url('dashboard');
+		parent :: header_modif($title);
 
 
 		$data['users']		= $this->UsersModel->getByUserId(user_id());
-		$this->load->view('dompetGoo/dompet_detail', $data);
-		$this->load->view('web/footer');
+
+		if (is_mobile()) {
+			$this->load->view('dompetGoo/dompet_detail', $data);
+		} else {
+			parent :: header($title) ;
+			//Belum ada
+		}
+
+		parent::footer_blank();
 	}
 	public function invoice($param = "")
 	{

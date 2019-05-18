@@ -408,9 +408,9 @@ img {
 				</div>
 			</div>
             
-            <span class="css-1vy75ml">
-            	<img src="<?php echo base_url('favicon.ico') ?>" width="28px">
-            </span>
+            <a href="<?php echo site_url('messages') ?>" class="css-1vy75ml">
+                <img src="<?php echo base_url('favicon.ico') ?>" width="28px">
+            </a>
             <form action="<?php echo site_url('p/search') ?>" method="get" class="unf-navbar__title css-1a7d65i">
 	            <div>
 	                <div class="css-1q4sco0-unf-searchbar">

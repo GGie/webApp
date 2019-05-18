@@ -1149,7 +1149,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .pagination {
 	margin-top: 40px;
-	margin-bottom: 40px
+	margin-bottom: 40px;
+	text-align: center;
 }
 
 .pagination .page-item {
@@ -4260,7 +4261,7 @@ background-color: #fff;
 .pagination li a {
   color: #444;
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 10px;
   padding: 0 10px;
   line-height: 30px;
 }

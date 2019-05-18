@@ -186,11 +186,12 @@ class Cart extends MX_Controller {
 		// }
 		// $data['kurir'] = $dataKurir;
 
-		$data['product'] = $this->ProductModel->getProductId($id);
-
+		$data['product'] = $this->CartModel->getOrderCart()->row(); //$this->ProductModel->getProductId($id);
+		
 		if ($data['product'] == null)
 			show_404();
 
+		$data['product_price'] = $data['product']->price * $data['product']->quantity;
 		// $order_id = $this->CartModel->getProductId($param);
 		// if (!$order_id)
 		// 	show_404();

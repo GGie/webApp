@@ -263,7 +263,7 @@
       <label for="product_desc" class="pl-2 normal" style="font-size: 14px;
     color: #eee;
     font-weight: bold;color: #000">Alamat Rumah</label>
-      <label data-content="Kode Pos"></label>
+      <label data-content=""></label>
       <textarea class="form-control" id="alamat_detail" name="alamat_detail" placeholder="Nama Jalan, Nomor Rumah RT/RW" required="true" maxlength="350"
       style="border: 01px solid #eee!important;" 
       ></textarea>

@@ -1,122 +1,136 @@
 <link href="<?php echo base_url() ?>/assets/css/select2.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/minimalect.css" />
-   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/upload.css" />
-    
-    <script src="<?php echo base_url() ?>/assets/js/minimalect.js?c=201305202005"></script>
-    <style type="text/css">
-	/***
-User Profile Sidebar by @keenthemes
-A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-Licensed under MIT
-***/
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/minimalect.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/upload.css" />
 
-body {
-  /*background: #F1F3FA;*/
+<script src="<?php echo base_url() ?>/assets/js/minimalect.js?c=201305202005"></script>
+<style type="text/css">
+.wrapper {
+
+}
+.form-control {
+  margin: 0!important;
+}
+.material-textfield {
+  display: inline-block;
+  height: 4rem;
+  padding-top:30px;
+}
+ 
+.material-textfield input,.material-textfield select,.material-textfield textarea {
+    width: 100%;
+    height: 32px;
+    color: rgba(49,53,59,0.96);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    outline: none;
+    padding: 5px 0;
+    margin: 0;
+    /* -webkit-transition: color 280ms ease; */
+    /* transition: color 280ms ease; */
 }
 
-/* Profile container */
-.profile {
-  margin: 20px 0;
+.material-textfield input:invalid {
+  box-shadow: none;
 }
-
-/* Profile sidebar */
-.profile-sidebar {
-  padding: 0px 0 10px 0;
-  background: #fff;
+*:focus {
+    outline: none;
 }
-
-.profile-userpic img {
-  float: none;
-  margin: 0 auto;
-  width: 50%;
-  height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 30% !important;
+.material-textfield label {
+  display: inline-block;
+  font-size: 0;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
 }
-
-.profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
+.material-textfield label::before {
+  content: attr(data-content);
+  position: relative;
+  transition: all 0.2s ease;
+  will-change: font-size, top;
 }
-
-.profile-usertitle-name {
-  color: #5a7391;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
+.material-textfield label::after {
+  content: "";
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  transition: all 0.2s ease;
+  width: 0;
+  will-change: width, left;
 }
-
-.profile-usertitle-job {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.profile-userbuttons {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.profile-userbuttons .btn {
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 6px 15px;
-  margin-right: 5px;
-}
-
-.profile-userbuttons .btn:last-child {
-  margin-right: 0px;
-}
-    
-.profile-usermenu {
-  margin-top: 30px;
-}
-
-.profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
-}
-
-.profile-usermenu ul li:last-child {
-  border-bottom: none;
-}
-
-.profile-usermenu ul li a {
-  color: #93a3b5;
+.material-textfield label::before, .material-textfield input[required]:focus ~ label::before {
   font-size: 14px;
-  font-weight: 400;
+  top: -3.25rem;
+  color: #eee;
+  font-weight: bold;
+}
+.material-textfield input:focus ~ label::after {
+  left: 0%;
+  width: 100%;
+}
+.material-textfield input:invalid ~ label::before {
+/*  font-size: 1rem;
+  top: -2rem;*/
 }
 
-.profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 14px;
+.material-textfield.blue input {
+  border-bottom: 1px solid #2879fe;
+  color: #000;
+}
+.material-textfield.blue label::after {
+  background: #2879fe;
+}
+.material-textfield.blue label::before, .material-textfield.blue input[required]:focus ~ label::before {
+  color: #47c4fd;
+}
+.material-textfield.blue input:invalid ~ label::before {
+  color: #2879fe;
 }
 
-.profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
+
+.material-textfield.normal input,.material-textfield.normal select,.material-textfield.normal textarea  {
+  border-bottom: 1px solid #eee;
+  color: #000;
+}
+.material-textfield.normal label::after {
+  background: #2879fe;
+}
+.material-textfield.normal label::before, .material-textfield.normal input[required]:focus ~ label::before {
+  color: #000;
+}
+.material-textfield.normal input:invalid ~ label::before {
+  color: #000;
 }
 
-.profile-usermenu ul li.active {
-  border-bottom: none;
+.material-textfield.red input {
+  border-bottom: 1px solid #F44336;
+  color: #d2190b;
+}
+.material-textfield.red label::after {
+  background: #F44336;
+}
+.material-textfield.red label::before, .material-textfield.red input[required]:focus ~ label::before {
+  color: #f8877f;
+}
+.material-textfield.red input:invalid ~ label::before {
+  color: #F44336;
 }
 
-.profile-usermenu ul li.active a {
-  color: #007bff;
-  background-color: #f6f9fb;
-  border-left: 2px solid #007bff;
-  margin-left: -2px;
-}
-
-/* Profile Content */
-.profile-content {
-  background: #fff;
-  min-height: 460px;
+.form-control {
+  border: none!important;
 }
 </style>
 
@@ -124,7 +138,7 @@ body {
 
 
 
-		<div class="container-fluid custom-container">
+		<div class="container-fluid custom-container pt-3 pb-4">
 			<div class="row">
 				
 				<div class="col-md-12 col-sm-12">
@@ -136,20 +150,21 @@ body {
 
 <form method="post" id="form" action="<?php echo base_url('dashboard/account/update_contact') ?>" enctype="multipart/form-data">
 
-<div class="form-group">
-  <label for="email">Email</label>
-  <input type="text" class="form-control" id="email" name="email" placeholder="Email" readonly value="<?php echo $user->email ?>" autocomplete="off" required="true" maxlength="50">
-</div>
+    <div class="material-textfield normal form-control mt-4">
+      <input type="text" id="email" name="email" placeholder="Email" readonly value="<?php echo $user->email ?>" autocomplete="off" required="true" maxlength="50">
+      <label data-content="Email"></label>
+    </div>
 
-<div class="form-group">
-  <label for="nohp">No HP</label>
-  <input type="text" class="form-control" id="nohp" name="nohp" placeholder="No HP" value="<?php echo $user->nohp ?>" autocomplete="off" maxlength="15">
-</div>
+    <div class="material-textfield normal form-control mt-4">
+      <input type="text" id="nohp" name="nohp" placeholder="No HP" value="<?php echo $user->nohp ?>" autocomplete="off" maxlength="15">
+      <label data-content="No HP"></label>
+    </div>
 
-<div class="form-group">
-  <label for="whatsapp">Whatsapp</label>
-  <input type="text" class="form-control" id="whatsapp" name="whatsapp" placeholder="Whatsapp" value="<?php echo $user->whatsapp ?>" autocomplete="off"  maxlength="15">
-</div>
+    <div class="material-textfield normal form-control mt-4">
+      <input type="text" id="whatsapp" name="whatsapp" placeholder="Whatsapp" value="<?php echo $user->whatsapp ?>" autocomplete="off"  maxlength="15">
+      <label data-content="Whatsapp"></label>
+    </div>
+
 
   <button type="submit" class="btn-accent btn-small btn size-3" style="width: 120px"><i class="fa fa-paper-plane-o"></i> <?php echo $this->lang->line('edit'); ?></button>
   <a href="<?php echo site_url('dashboard/account_setting') ?>" class="btn btn-small btn-border02" style="margin: 10px;width: 120px"> <?php echo $this->lang->line('back'); ?></a>
