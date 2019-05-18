@@ -4,4 +4,4 @@ deployment:
     - export DEPLOYPATH=/home/goopizco/sandbox/frontend/
     #- /bin cp * $DEPLOYPATH
     #- /bin/cp -r * $DEPLOYPATH
-    - /bin/rsync -Paz * $DEPLOYPATH
+    - /bin/rsync -Paz --exclude="database.php" * $DEPLOYPATH
